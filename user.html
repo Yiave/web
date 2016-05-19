@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	
+<!-- Mirrored from www.goqingjie.com/user.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 18 May 2016 02:15:16 GMT -->
+<head>
+		<meta charset="utf-8">
+		<title>个人信息</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" href="css/app.css">
+	</head>
+
+	<body>
+		<!--页面标题栏开始-->
+		<header class="mui-bar mui-bar-nav">
+			<button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav"></span>
+			</button>
+			<h1 class="mui-center mui-title">个人信息</h1>
+		</header>
+		<!--页面标题栏结束-->
+		<!--页面主内容区开始-->
+		<div class="mui-scroll">
+			<ul class="mui-table-view mui-table-view-chevron">
+				<li class="mui-table-view-cell mui-media">
+					<a class="mui-navigate-right" href="#">
+						<img class="mui-media-object mui-pull-left head-img" src="images/user.jpg" alt="" />
+					</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view mui-table-view-chevron">
+				<li class="mui-table-view-cell">
+					<span>帐户名：xy</span>
+				</li>
+			</ul>
+			<ul class="mui-table-view mui-table-view-chevron">
+				<li class="mui-table-view-cell">
+					<a href="account-info-name.html" class="mui-navigate-right">昵　称：点点</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view mui-table-view-chevron">
+				<li class="mui-table-view-cell">
+					<a href="account-info-password.html" class="mui-navigate-right">登录密码：****</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a href="account-info-phone.html" class="mui-navigate-right">手 机 号：138****111</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a href="account-info-sex.html" class="mui-navigate-right">性　别：女</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view mui-table-view-chevron">
+				<li class="mui-table-view-cell">
+					<a href="account-info-birthday.html" class="mui-navigate-right">出生日期：1992-09-06</a>
+				</li>
+			</ul>
+			<div class="padding10">
+				<button class="mui-btn mui-btn-primary mui-btn-block btn" type="button">保存提交</button>
+			</div>
+		</div>
+		<!--页面主内容区结束-->
+		
+	</body>
+	<script src="js/mui.min.js"></script>
+	<script src="js/app.js"></script>
+	<script>
+		mui.init({
+			swipeBack: true //启用右滑关闭功能
+		});
+		mui('.mui-scroll-wrapper').scroll();
+		mui('body').on('shown', '.mui-popover', function(e) {
+			//console.log('shown', e.detail.id);//detail为当前popover元素
+		});
+		mui('body').on('hidden', '.mui-popover', function(e) {
+			//console.log('hidden', e.detail.id);//detail为当前popover元素
+		});
+
+	</script>
+
+<!-- Mirrored from www.goqingjie.com/user.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 18 May 2016 02:15:23 GMT -->
+</html>
+</html>

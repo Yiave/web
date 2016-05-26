@@ -1,0 +1,158 @@
+<ion-view view-title="个人信息">
+
+	<ion-content has-subheader="false">
+		<div>
+			<ul class="mui-table-view mui-table-view-chevron">
+				<li class="mui-table-view-cell mui-media">
+					<a class="mui-navigate-right" href="#">
+						<img class="mui-media-object mui-pull-left head-img" src="images/user.jpg" alt="" />
+					</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view mui-table-view-chevron">
+				<li class="mui-table-view-cell">
+					<span>帐户名：xy</span>
+				</li>
+			</ul>
+			<ul class="mui-table-view mui-table-view-chevron">
+				<li class="mui-table-view-cell">
+					<a ui-sref="tab.userInfoName" class="mui-navigate-right">昵　称：点点</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view mui-table-view-chevron">
+				<li class="mui-table-view-cell">
+					<a ui-sref="tab.userInfoPwd" class="mui-navigate-right">登录密码：****</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a ui-sref="tab.userInfoPhone" class="mui-navigate-right">手 机 号：138****111</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a ui-sref="tab.userInfoSex" class="mui-navigate-right">性　别：女</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view mui-table-view-chevron">
+				<li class="mui-table-view-cell">
+					<a ui-sref="tab.userInfoBirth" class="mui-navigate-right">出生日期：1992-09-06</a>
+				</li>
+			</ul>
+			<div class="padding10">
+				<button class="mui-btn mui-btn-primary mui-btn-block btn" type="button">保存提交</button>
+			</div>
+		</div>
+
+	</ion-content>
+
+</ion-view>
+
+<script id="templates/user-info-birthday.html" type="text/ng-template">
+  <ion-view view-title="修改生日">
+    <ion-content>
+      <div class="mui-content account-info">
+			<div class="mui-input-group">
+				<div class="mui-input-row">
+					<label>生日</label>
+					<input id='result' type="text" disabled="true" placeholder="1993 05 12" />
+					<i id='demo2' data-options='{"type":"date","beginYear":1950,"endYear":2016}' class="mui-icon mui-icon-arrowdown"></i>
+				</div>
+			</div>
+			<div class="padding10">
+				<a href="#" class="mui-btn mui-btn-primary mui-btn-block btn" type="button">保存</a>
+			</div>
+		</div>
+    </ion-content>
+  </ion-view>
+</script>
+
+<script id="templates/user-info-name.html" type="text/ng-template">
+  <ion-view view-title="修改昵称">
+    <ion-content>
+      <div class="mui-content account-info">
+			<div class="mui-input-group">
+				<div class="mui-input-row">
+					<label>昵称</label>
+					<input type="text" placeholder="小萝莉" />
+				</div>
+			</div>
+			<div class="padding10">
+				<a href="#" class="mui-btn mui-btn-primary mui-btn-block btn" type="button">保存</a>
+			</div>
+		</div>
+    </ion-content>
+  </ion-view>
+</script>
+
+<script id="templates/user-info-password.html" type="text/ng-template">
+  <ion-view view-title="修改密码">
+    <ion-content>
+      <div class="mui-content account-info">
+			<div class="mui-input-group">
+				<div class="mui-input-row get-code">
+					<label>验证码</label>
+					<button>获取验证码</button>
+					<input type="text" placeholder="请输入短信验证码" />
+				</div>
+				<div class="mui-input-row">
+					<label>新密码</label>
+					<input type="text" placeholder="请输入新密码" />
+				</div>
+			</div>
+			<div class="padding10">
+				<a href="#" class="mui-btn mui-btn-primary mui-btn-block btn" type="button">保存</a>
+			</div>
+		</div>
+    </ion-content>
+  </ion-view>
+</script>
+
+<script id="templates/user-info-phone.html" type="text/ng-template">
+  <ion-view view-title="修改手机号">
+    <ion-content>
+      <div class="mui-content account-info">
+			<div class="mui-input-group">
+				<div class="mui-input-row">
+					<label>手机号</label>
+					<input type="text" placeholder="请输入原手机号码" />
+				</div>
+			</div>
+			<div class="mui-input-group">
+				<div class="mui-input-row">
+					<label>新手机</label>
+					<input type="text" placeholder="请输入新手机号码" />
+				</div>
+				<div class="mui-input-row get-code">
+					<label>验证码</label>
+					<button>获取验证码</button>
+					<input type="text" placeholder="请输入新手机短信验证码" />
+				</div>
+			</div>
+			<div class="padding10">
+				<a href="#" class="mui-btn mui-btn-primary mui-btn-block btn" type="button">保存</a>
+			</div>
+		</div>
+    </ion-content>
+  </ion-view>
+</script>
+
+<script id="templates/user-info-sex.html" type="text/ng-template">
+  <ion-view view-title="修改性别">
+    <ion-content>
+      <div class="mui-content account-info">
+			<ul class="mui-table-view mui-table-view-radio">
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						男
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-selected">
+					<a class="mui-navigate-right">
+						女
+					</a>
+				</li>
+			</ul>
+			<div class="padding10">
+				<a href="#" class="mui-btn mui-btn-primary mui-btn-block btn" type="button">保存</a>
+			</div>
+		</div>
+    </ion-content>
+  </ion-view>
+</script>

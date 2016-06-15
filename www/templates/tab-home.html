@@ -1,0 +1,73 @@
+<ion-view view-title="衣街">
+
+	<ion-nav-buttons side="right">
+		<!-- <header class="mui-bar mui-bar-nav">
+			<a class="mui-icon mui-pull-left" style="
+			margin-top: -5px;"><span>长沙<i class="mui-icon mui-icon-arrowdown"></i></span></a>
+			
+			<div class="mui-title">
+				<input type="text" placeholder="搜索商铺" />
+			</div>
+			
+		</header> -->
+		<!-- <label class="item item-input">
+				<i class="icon ion-ios-search placeholder-icon"></i>
+				<input type="text" placeholder="搜索商铺">
+		</label> -->
+
+		<span style="margin-top: 7px;">长沙 <i class="icon ion-chevron-down"></i></span>
+		<!-- <input type="text" placeholder="搜索商铺" width="70%"/> -->
+
+
+		
+			<!-- 
+					
+			<div class="button button-icon icon ion-ios-bell" ui-sref="tab.notice"></div> -->
+
+		
+
+	</ion-nav-buttons>
+
+	
+	<ion-content>
+
+			<!--start-bannner-->	
+			<div class="banner">
+				<div class="flexslider">
+					<ul class="slides">
+						<li><img alt="banner" src="images/banner_qc5.jpg" /></li>
+						<li><img alt="banner" src="images/banner_biyeji.jpg" /></li>
+						<li><img alt="banner" src="images/banner_cx.jpg" /></li>
+
+					</ul>
+				</div>
+			</div>
+
+			<!--End-slider-->
+		<ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
+
+			<ion-list class="mui-table-view store-list" >
+				<ion-item ng-repeat="promo in promotions" ng-click="promoDetails(promo.id)">
+
+					<p class="img-left"><img src="images/logo_nike.jpg" alt="" /></p>
+					<div class="caption">
+						<h4>Nike</h4>
+						<p><span>折</span>{{promo.title}}</p>
+						<p>{{promo.description}}</p>
+
+					</div>
+					<p class="text-address">地址：黄兴南路步行商业街1F<span>< 100米</span></p>
+					
+				</ion-item>
+			</ion-list>
+
+			<ion-infinite-scroll   
+				ng-if="morePromoCanBeLoaded()"
+  				icon="ion-loading-c"
+  				on-infinite="loadMorePromotions()" 
+  				distance="1%">
+  			</ion-infinite-scroll>
+		</ion-content>
+	</ion-view>
+
+

@@ -1,0 +1,71 @@
+<ion-view view-title="登录">
+	<ion-nav-buttons side="left">
+		<button class="button button-icon icon ion-ios-arrow-back" ui-sref="tab.me" style='padding-top: 5px;'>
+		</button>	
+
+	</ion-nav-buttons>
+
+	<ion-content has-subheader="false">
+		<form name="loginForm" ng-submit="userLogin(user)" ng-controller="loginCtrl" novalidate>
+		<ion-list>
+			<div class="item item-input item-floating-label">	
+
+				<div class="row">
+					<div class="col-90">
+						<input type="text" placeholder="手机/邮箱/用户名" style="padding: 0px;" name="account" ng-model="user.account" required>
+					</div>
+
+					<div class="col-10">
+						<i class="icon ion-close-round" ng-click="reset(loginForm.account)"
+						style="color: rgb(209, 216, 227); padding-left: 10px;"></i>
+					</div>
+				</div>         
+
+			</div>
+			<div class="item item-input item-floating-label">	
+				<div class="row">
+					<div class="col-90">
+						<input type="password" placeholder="密码" style="padding: 0px;" name="password" 
+						ng-model="user.password" required>
+					</div>
+					<div class="col-10"><i class="icon ion-close-round" ng-click="reset(loginForm.password)"
+						style="color: rgb(209, 216, 227); padding-left: 10px;"></i>
+					</div>
+				</div>
+			</div>
+		</ion-list>
+
+      <div class="padding" style="padding-bottom: 0px;">
+        <button type="submit" class="button button-block button-assertive"  ng-disabled="loginForm.$invalid">登录
+        </button>
+      </div>
+      </form>
+
+      <div class="row padding" style="padding-top: 0px;">
+      	<div class="col-50" style="text-align: left;">
+      		<a href="">
+      			<span style="color: rgb(239, 71, 58);">找回密码</span>
+      		</a>
+      	</div>
+      	<div class="col-50" style="text-align: right;">
+      		<a ui-sref="register">
+      			<span style="color: rgb(239, 71, 58);">注册</span>
+      		</a>
+      	</div>
+      </div>
+
+      <div style="padding-top: 100px;">
+      	<div style="text-align: center; "><span style="color: rgb(209, 209, 209);">使用第三方账号登录</span></div>
+      	<div class="row">
+      		<div class="col-33"><img src="images/weibo_logo.jpg" class="third-login-image" style="left: 10%;"></div>
+      		<div class="col-33"><img src="images/wechat_logo.jpg" class="third-login-image" style="left: 40%;"></div>
+      		<div class="col-33"><img src="images/QQ_logo.jpg" class="third-login-image" style="left: 70%;"></div>
+      	</div>
+      </div>
+
+      
+	</ion-content>
+
+
+
+</ion-view>

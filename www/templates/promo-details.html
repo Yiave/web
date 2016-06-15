@@ -1,0 +1,44 @@
+<ion-view view-title="促销详情">
+	<ion-nav-buttons align-title="left" class="bar-assertive">
+		
+		<button class="button button-icon icon ion-ios-arrow-back" ui-sref="tab.home" style='padding-top: 5px;'>
+		</button>
+			
+		
+	</ion-nav-buttons>
+
+
+	<ion-content has-subheader="false">
+		<div class="mui-content">
+			<ul class="mui-table-view store-list store-detail">
+				<li class="mui-table-view-cell">
+					<a href="details.html">
+						<p class="img-left"><img src="images/logo_nike.jpg" alt="" /></p>
+						<div class="caption">
+							<h4>Nike品牌店<button class="mui-btn btn">关注</button><!--<i class="icon-share"></i>--></h4>
+							<p>营业时间：9:00-21:00</p>
+						</div>
+					</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view address">
+				<li class="mui-table-view-cell">发布时间：2016.05.01 9:00</li>
+				<li class="mui-table-view-cell">促销时间：2016.05.01 - 05.03</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">地址：黄兴南路步行商业街1F</a>
+				</li>
+			</ul>
+			<div class="new-recommend">
+				<ul class="recommend-title clearfix">
+					<li>
+						<span>{{promotion.title}}</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!--页面主内容区开始-->
+		<ul class="fixed-comment">
+			<a><li>加入约买</li></a>
+		</ul>
+	</ion-content>
+</ion-view>

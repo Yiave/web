@@ -1,0 +1,100 @@
+<ion-view view-title="个人中心">
+	<!-- <ion-header-bar align-title="center" class="bar-assertive">
+		<div class="h1 title">个人中心</div>
+		<div class="button button-outline button-light" ui-sref="notice">通知</div>
+	</ion-header-bar> -->
+	<ion-nav-buttons side="right">
+		<div class="button button-icon icon ion-ios-bell" ui-sref="notice"></div>
+	</ion-nav-buttons>
+
+
+	<ion-content>
+		<div class="mui-content index">
+			<div class="user-account-img mui-text-center">
+				<a ng-hide="hasLogin" ui-sref="login"><p><img ng-src="{{user.imagesrc}}" alt="" /></p></a>
+				<a ng-show="hasLogin" ui-sref="userInfo"><p><img src="images/user.jpg" alt="" /></p></a>
+				
+				
+				<p class="name">{{user.nickname}}</p>
+				
+				<div ng-hide="hasLogin">
+					<span>请点击登录</span>
+				</div>
+
+				<div ng-show="hasLogin">
+					<span>(点击头像修改资料)</span>
+				</div>
+
+			</div>
+			<ul class="user-account-title clearfix">
+				<li>
+					<a ui-sref="userComments">
+						<i class="icon-user1"></i>
+						<span>我的评价</span>
+					</a>
+				</li>
+				<li>
+					<a ui-sref="userFocus">
+						<i class="icon-user1 icon-user2"></i>
+						<span>我的关注</span>
+					</a>
+				</li>
+				<li>
+					<a ui-sref="userRecommend">
+						<i class="icon-user1 icon-user3"></i>
+						<span>我的专属推荐</span>
+					</a>
+				</li>
+			</ul>
+			
+			<div class="list-block contacts-list searchbar-found">
+				<div class="list-group">
+					<ul>
+						<li class="contact-item">
+							<a href="#" class="item-link">
+								<div class="item-content">
+									<div class="item-inner">
+										<div class="item-title-row">
+											<div class="item-title">
+												设置
+											</div>
+										</div>
+									</div>
+								</div>
+							</a>
+						</li>
+						<li class="contact-item">
+							<a ui-sref="businessInfo" class="item-link">
+								<div class="item-content">
+									<div class="item-inner">
+										<div class="item-title-row">
+											<div class="item-title">
+												商家合作
+											</div>
+										</div>
+									</div>
+								</div>
+							</a>
+						</li>
+						<li class="contact-item">
+							<a ui-sref="aboutUs" class="item-link">
+								<div class="item-content">
+									<div class="item-inner">
+										<div class="item-title-row">
+											<div class="item-title">
+												关于
+											</div>
+										</div>
+									</div>
+								</div>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			
+		</div>
+	</ion-content>
+</ion-view>
+
+

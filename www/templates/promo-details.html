@@ -1,4 +1,4 @@
-<ion-view view-title="促销详情">
+<ion-view view-title="促销详情" hide-tabs=true>
 	<ion-nav-buttons align-title="left" class="bar-assertive">
 		
 		<button class="button button-icon icon ion-ios-arrow-back" ui-sref="tab.home" style='padding-top: 5px;'>
@@ -23,7 +23,7 @@
 			</ul>
 			<ul class="mui-table-view address">
 				<li class="mui-table-view-cell">发布时间：2016.05.01 9:00</li>
-				<li class="mui-table-view-cell">促销时间：2016.05.01 - 05.03</li>
+				<li class="mui-table-view-cell">促销时间：{{promotion.start_date}} - {{promotion.end_date}}</li>
 				<li class="mui-table-view-cell">
 					<a class="mui-navigate-right">地址：黄兴南路步行商业街1F</a>
 				</li>
@@ -36,9 +36,8 @@
 				</ul>
 			</div>
 		</div>
-		<!--页面主内容区开始-->
-		<ul class="fixed-comment">
-			<a><li>加入约买</li></a>
-		</ul>
+		<button class="button button-block button-positive" ng-click="pageToSubmitWish()">
+  			参与
+		</button>
 	</ion-content>
 </ion-view>

@@ -104,7 +104,7 @@
 
 <script id="templates/mail-register.html" type="text/ng-template">
 	<ion-view view-title="邮箱注册">	
-		<ion-content has-subheader="false">
+		<ion-content has-subheader="false" ng-controller="registerCtrl">
 			<form name="registerForm" ng-submit="mailRegister(user)" novalidate>
 			<ion-list>
 				
@@ -113,7 +113,7 @@
 							<div class="col-90">
 								<input type="text" placeholder="用户名" name="username" ng-model="user.username" required>
 							</div>
-							<div class="col-10" ng-click="reset(registerForm.username)">
+							<div class="col-10" ng-click="reset('username')">
 								<i class="icon ion-close-round" 
 								style="color: rgb(209, 216, 227); padding-left: 10px;"></i>
 							</div>
@@ -129,7 +129,7 @@
 							<div class="col-90">
 								<input type="email" placeholder="邮箱地址" name="email" ng-model="user.email" required>
 							</div>
-							<div class="col-10" ng-click="reset(registerForm.email)">
+							<div class="col-10" ng-click="reset('email')">
 								<i class="icon ion-close-round" 
 								style="color: rgb(209, 216, 227); padding-left: 10px;"></i>
 							</div>
@@ -146,7 +146,7 @@
 							<div class="col-90">
 								<input type="password" placeholder="设置密码" ng-model="user.password" name="password" required>
 							</div>
-							<div class="col-10" ng-click="reset(registerForm.password)">
+							<div class="col-10" ng-click="reset('password')">
 								<i class="icon ion-close-round" 
 								style="color: rgb(209, 216, 227); padding-left: 10px;"></i>
 							</div>
@@ -161,7 +161,7 @@
 							<div class="col-90">
 								<input type="password" placeholder="确认密码" ng-model="user.passwordAgain" name="passwordAgain" required>
 							</div>
-							<div class="col-10" ng-click="reset(registerForm.passwordAgain)">
+							<div class="col-10" ng-click="reset('passwordAgain')">
 								<i class="icon ion-close-round" 
 								style="color: rgb(209, 216, 227); padding-left: 10px;"></i>
 							</div>

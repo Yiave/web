@@ -233,17 +233,19 @@ angular.module('yiave.services',[])
             //        /* body... */ 
             //        console.log('');
             //    });
-                /*[
-                    {
-                        "business_id": 1, 
-                        "description": "仅剩三天", 
-                        "end_time": "Tue, 07 Jun 2016 12:00:00 GMT", 
-                        "id": 1, 
-                        "image": "www.image.com", 
-                        "start_time": "Fri, 03 Jun 2016 12:00:00 GMT", 
-                        "title": "夏装全场一折"
-                    }
-                ]*/
+                /*
+[{
+    "business_id": 1,
+    "description": "\u4ec5\u5269\u4e09\u5929",
+    "end_time": "Tue, 07 Jun 2016 12:00:00 GMT",
+    "id": 1,
+    "image": "www.image.com",
+    "promotion_count": null,
+    "start_time": "Fri, 03 Jun 2016 12:00:00 GMT",
+    "title": "\u590f\u88c5\u5168\u573a\u4e00\u6298",
+    "type": null
+}]
+                */
 
                 /*var i = 0;
                 var length;
@@ -260,15 +262,17 @@ angular.module('yiave.services',[])
             },
 
             getPromotionById: function (promoID) {
-                /*
-        {
+/*
+{
   "business_id": 1, 
   "description": "\u4ec5\u5269\u4e09\u5929", 
   "end_time": "Tue, 07 Jun 2016 12:00:00 GMT", 
   "id": 1, 
   "image": "www.image.com", 
+  "promotion_count": null, 
   "start_time": "Fri, 03 Jun 2016 12:00:00 GMT", 
-  "title": "\u590f\u88c5\u5168\u573a\u4e00\u6298"
+  "title": "\u590f\u88c5\u5168\u573a\u4e00\u6298", 
+  "type": null
 }
 */
                 $http.get("http://api.yiave.com/v1/promotions/"+promoID)

@@ -30,11 +30,40 @@ function strIsEmail(strEmail) {
     }
 }
 
+//miliseconds to date
+//时间格式：2016/7/17 -> 2016-07-17
+function DateValueToString(val){
+    var LDStr = new Date(val).toLocaleDateString();//.replaceAll('/', '-');
+    var yearStr = LDStr.split('/')[0];
+    var monStr = LDStr.split('/')[1];
+    var dayStr = LDStr.split('/')[2];
+    var str =  yearStr + '-' + (Number(monStr) < 10 ? ('0'+monStr) : monStr) + '-' +
+        + (Number(dayStr) < 10 ? ('0'+dayStr) : dayStr);
+    return str;
+}
+
+//string to date
+//2016-07-18 22:00:00
+function StringToDate (str) {
+    var date = str.split(" ")[0];
+    var time = str.split(" ")[1];
+
+    var year =  Number(date.split('-')[0]);
+    var month = Number(date.split('-')[1]) - 1;
+    var day = Number(date.split('-')[2]);
+
+    var hours = time.split(":")[0];
+    var min = time.split(":")[1];
+    var sec = time.split(":")[2];
+
+    return new Date(year, month, day, hours, min, sec);
+}
+
 angular.module('yiave.controllers', [])
 
 
 
-.controller('messageCtrl', function($scope, $state, $ionicPopup, localStorageService, messageService) {
+.controller('chatCtrl', function($scope, $state, $ionicPopup, localStorageService, messageService) {
 
     //$scope.messages = messageService.getAllMessages();
     // console.log($scope.messages);
@@ -101,7 +130,7 @@ angular.module('yiave.controllers', [])
 
 })
 
-.controller('messageDetailCtrl', ['$scope', '$stateParams',
+.controller('messageCtrl', ['$scope', '$stateParams',
     'messageService', '$ionicScrollDelegate', '$timeout',
     function($scope, $stateParams, messageService, $ionicScrollDelegate, $timeout) {
         var viewScroll = $ionicScrollDelegate.$getByHandle('messageDetailsScroll');
@@ -135,14 +164,23 @@ angular.module('yiave.controllers', [])
     }
     ])
 
-.controller('loginCtrl',['$scope', '$http', '$state' ,'$rootScope','$cookies','userService', '$ionicPopup','$timeout',
-    function($scope, $http, $state,$rootScope,$cookies,userService,$ionicPopup,$timeout){
 
-        $scope.reset = function(ele) {
-            if (ele) {
-                $scope.loginForm.$setPristine();
-                $scope.loginForm.$setUntouched();
-                //console.log(ele);
+.controller('loginCtrl',['$scope', '$http', '$state' ,'$rootScope','$cookies','userService', '$ionicLoading','$timeout',
+    function($scope, $http, $state,$rootScope,$cookies,userService,$ionicLoading,$timeout){
+
+        //注释行$setPristine不管用，只能采用暴力解法
+        $scope.reset = function(str) {
+            //if (ele) {           
+                //ele.$setPristine();
+                //ele.$setUntouched();
+            //}
+            if(str == "account"){
+                $scope.user.account = null;
+            }
+            else if (str == "password") {
+                $scope.user.password = null;
+            }else{
+
             }
         }
 
@@ -166,35 +204,13 @@ angular.module('yiave.controllers', [])
             //通过Cordova Network Information Plugin来判断网络状态
 
             // if(navigator.connection.type == Connection.NONE){
-            //     var alertPopup = $ionicPopup.alert({
-                        
-            //         title: '提示',
-            //         template: '数据获取失败，请检查网络状态',
-            //         okType: 'button-positive',
-            //         okText: '知道了'
-            //     });
-            //     alertPopup.then(function(res) {
-                    
-            //     });
-            //     $timeout(function () {
-            //         alertPopup.close();
-            //     } ,2000);
+            //    ionicToast.show('网络连接不可用，请稍候重试', 'top', false, 3000);
+            //    return;
+            //     
             // }
 
             //弹出框显示“加载中”，或是登录按钮为disable，显示“登录中”
-            var loadingPopup = $ionicPopup.alert({
-
-                title: '',
-                template: '加载中',
-                okType: 'button-positive',
-                okText: ' '
-            });
-            // loadingPopup.then(function(res) {
-                
-            // });
-            // $timeout(function () {
-            //     loadingPopup.close();
-            // } ,2000);
+            $ionicLoading.show();
 
             $http.post("http://api.yiave.com/v1/customers/authenticate", params = params)
             .then(function (response) {
@@ -209,33 +225,11 @@ angular.module('yiave.controllers', [])
                 //500 账户错误
 
                 if(response.status == 403){
-                    var alertPopup = $ionicPopup.alert({
-                        
-                        title: '提示',
-                        template: '密码输入错误，请重新输入',
-                        okType: 'button-positive',
-                        okText: '知道了'
-                    });
-                    alertPopup.then(function(res) {
-                        
-                    });
-                    $timeout(function () {
-                        alertPopup.close();
-                    } ,2000);
+                    ionicToast.show('密码输入错误', 'top', false, 3000);
+                    
                 }else if (response.status == 404) {
-                    var alertPopup = $ionicPopup.alert({
-                        
-                        title: '提示',
-                        template: '账户输入错误，请重新输入',
-                        okType: 'button-positive',
-                        okText: '知道了'
-                    });
-                    alertPopup.then(function(res) {
-                        
-                    });
-                    $timeout(function () {
-                        alertPopup.close();
-                    } ,2000);
+                    ionicToast.show('账户输入错误', 'top', false, 3000);
+                    
                 }
                 
             })
@@ -243,20 +237,32 @@ angular.module('yiave.controllers', [])
                 
             })
             .finally(function(){
-                loadingPopup.close();
+                $ionicLoading.close();
             });
         }
     }
 ])
 
-.controller('registerCtrl', function($scope, $http, $state, $ionicPopup, $timeout){
+.controller('registerCtrl', function($scope, $http, $state, $timeout){
 
     //$scope.pwdNotSame = false;
 
-    $scope.reset = function(ele) {
-        if (ele) {
-          ele.$setPristine();
-          ele.$setUntouched();
+    $scope.reset = function(str) {
+        // if (ele) {
+        //   ele.$setPristine();
+        //   ele.$setUntouched();
+
+        // }
+        if(str == "username"){
+            $scope.user.username = null;
+        }
+        else if (str == "email") {
+            $scope.user.email = null;
+        }else if (str == "password") {
+            $scope.user.password = null;
+        }else if (str == "passwordAgain") {
+            $scope.user.passwordAgain = null;
+        }else{
 
         }
     }
@@ -273,27 +279,19 @@ angular.module('yiave.controllers', [])
     };
 
     $scope.mailRegister = function (user) {
-        //网络状态检测
+        
+        //判断网络状态
+            // if(navigator.connection.type == Connection.NONE){
+            //     ionicToast.show('网络连接不可用，请稍候重试', 'top', false, 3000);
+            //     return;
+            // }
 
 
         //检测username是否重复
         $http.get("http://api.yiave.com/v1/customers/"+user.username)
             .then(function (response) {
                 //username已存在
-                var alertPopup = $ionicPopup.alert({
-
-                    title: '提示',
-                    template: '用户名已存在，请重新输入',
-                    okType: 'button-positive',
-                    okText: '知道了'
-                });
-                alertPopup.then(function(res) {
-
-                });
-
-                $timeout(function () {
-                    alertPopup.close();
-                } ,2000)
+                ionicToast.show('用户名已存在', 'top', false, 3000);
                 return;
             }, function (response) {
                 
@@ -310,20 +308,7 @@ angular.module('yiave.controllers', [])
         $http.get("http://api.yiave.com/v1/customers/"+user.email)
             .then(function (response) {
                 //邮箱已存在
-                var alertPopup = $ionicPopup.alert({
-
-                    title: '提示',
-                    template: '邮箱已被注册，请重新输入',
-                    okType: 'button-positive',
-                    okText: '知道了'
-                });
-                alertPopup.then(function(res) {
-
-                });
-
-                $timeout(function () {
-                    alertPopup.close();
-                } ,2000)
+                ionicToast.show('邮箱已被注册', 'top', false, 3000);
                 return;
             }, function (response) {
                  /* body... */ 
@@ -340,20 +325,7 @@ angular.module('yiave.controllers', [])
         //验证密码输入是否一致
         if(user.password != user.passwordAgain){
             //$scope.pwdNotSame = true;
-            var alertPopup = $ionicPopup.alert({
-            
-                title: '提示',
-                template: '两次密码输入不一致',
-                okType: 'button-positive',
-                okText: '知道了'
-            });
-            alertPopup.then(function(res) {
-                
-            });
-
-            $timeout(function () {
-                alertPopup.close();
-            } ,2000)
+            ionicToast.show('两次密码输入不一致', 'top', false, 3000);           
             return;
         }
 
@@ -367,7 +339,7 @@ angular.module('yiave.controllers', [])
             console.log('success');
                 /*
                 {
-                    “id”: 2,
+                 “id”: 2,
                   “username”: “test”,
                   “email”: “test@yiave.com”,
                   “is_confirmed”: false,
@@ -396,8 +368,8 @@ angular.module('yiave.controllers', [])
 
 
     
-    .controller('promotionCtrl', ['$scope','$http', '$state','promotionService','localStorageService',
-        function($scope, $http,$state, promotionService, localStorageService,getPromotions){
+    .controller('homeCtrl', ['$scope','$http', '$state','promotionService','localStorageService',
+        function($scope, $http,$state, promotionService, localStorageService){
         
             $(".flexslider").flexslider({
                 slideshowSpeed: 2000, //展示时间间隔ms
@@ -416,7 +388,7 @@ angular.module('yiave.controllers', [])
             $scope.promoDetails = function (promoID) {
 
 
-                //promotionService.getPromotionById(promoID)  暂时注释掉
+                //promotionService.getPromotionById(promoID)  //暂时注释掉
                 $state.go("promoDetails",{"promoID": promoID});
                
 
@@ -424,6 +396,13 @@ angular.module('yiave.controllers', [])
 
             //上拉刷新
             $scope.doRefresh = function() {
+
+                //判断网络状态
+            // if(navigator.connection.type == Connection.NONE){
+            //     ionicToast.show('网络连接不可用，请稍候重试', 'top', false, 3000);           
+            //     return;   
+            // }
+
       
 
                 $http.get('http://api.yiave.com/v1/promotions')
@@ -459,18 +438,249 @@ angular.module('yiave.controllers', [])
 
     }])
 
-    .controller('promotionDetailCtrl', ['$scope','$http','$stateParams','promotionService', 
-        function($scope, $http, $stateParams, promotionService){
+
+    .controller('promotionCtrl', ['$scope','$http','$stateParams','promotionService', '$state',
+        'ionicDatePicker','ionicTimePicker','ionicToast', '$rootScope', '$ionicLoading','$timeout',
+        function($scope, $http, $stateParams, promotionService,$state,ionicDatePicker,
+            ionicTimePicker,ionicToast, $rootScope, $ionicLoading, $timeout){
+
+
+            $scope.wish = new Object();
+            $scope.wish.startDatetime = "";
+            $scope.wish.endDatetime = "";
+            $scope.wish.clothCount = 1;
+            $scope.wish.matchType = 0;
+
+            $scope.matchTypeOption = [
+                {label: "系统匹配", id : 0},
+                {label: "加入约买", id : 1},
+                {label: "发起约买", id : 2}
+            ]
+
 
             $scope.$on("$ionicView.beforeEnter", function(){
                 
                 $scope.promotion = promotionService.getPromotionByIdLocal("promotion_"+$stateParams.promoID);
-                //$scope.promotions = getPromotions.promotions;
-                console.log('');
+                $scope.promotion.start_date = new Date($scope.promotion.start_time).toLocaleDateString();
+                $scope.promotion.end_date = new Date($scope.promotion.end_time).toLocaleDateString();
+
+                $scope.promotion.type = "clothing"; 
+                
+                var closeCount = 4 //$scope.promotion.promotion_count ;暂时注释  
+                $scope.clothCountOption = new Array();
+                for (var i = 1; i < closeCount; i++) {
+                    $scope.clothCountOption.push(i);
+                }
 
             });
 
+            $scope.pageToSubmitWish =  function () {
+                
+                $state.go('submitWish', {"promoID": $scope.promotion.id});
+            }
+
+            
+
+            $scope.openStartDP = function () {
+                var startDP  = {
+                    callback: function (val) {                
+                        
+                    var startDate = DateValueToString(val);
+
+                    var startTP = {
+                        callback: function (val) {  
+                            //8h 时差
+                            var startTime = new Date((val + 3600*16) * 1000).toTimeString().substr(0, 8);
+                            $scope.wish.startDatetime = startDate.concat(" ", startTime);
+                        
+                        },
+                        //有输入时显示当前选择的时刻，初始为当前时刻
+                        inputTime: ($scope.wish.startDatetime == "") ? ((new Date()).getHours() * 60 * 60) : (StringToDate($scope.wish.startDatetime).getHours() * 60 * 60)
+                    };
+
+                        ionicTimePicker.openTimePicker(startTP);
+
+                    },
+                    //可以选择的日期段,暂时注释
+                    //from: new Date(),
+                    //to: new Date($scope.promotion.end_time),
+
+                    //有输入时显示当前选择的日期，初始为当前日期
+                    inputDate: ($scope.wish.startDatetime == "") ? new Date(): StringToDate($scope.wish.startDatetime)
+                }
+
+                ionicDatePicker.openDatePicker(startDP);
+            }
+
+            $scope.openEndDP = function () {
+                var endDP = {
+                    callback: function (val) { 
+                        
+                        var endDate = DateValueToString(val);
+
+                        var endTP = {
+                            callback: function (val) { 
+                                
+                                var endTime = new Date((val + 3600*16) * 1000).toTimeString().substr(0, 8);
+                                $scope.wish.endDatetime = endDate.concat(" ", endTime);
+                                
+                            },
+
+                            inputTime: ($scope.wish.endDatetime == "") ? ((new Date()).getHours() * 60 * 60) : (StringToDate($scope.wish.endDatetime).getHours() * 60 * 60)
+                        }
+                        ionicTimePicker.openTimePicker(endTP);
+                    },
+                    //可以选择的日期段,暂时注释
+                    //from: new Date(),
+                    //to: new Date($scope.promotion.end_time),
+                    inputDate: ($scope.wish.endDatetime == "") ? new Date(): StringToDate($scope.wish.endDatetime)
+                }
+
+                ionicDatePicker.openDatePicker(endDP);
+            }
+
+            $scope.submitWish = function (wish) {
+                //判断网络连接状态
+                // if(navigator.connection.type == Connection.NONE){
+                //      ionicToast.show('网络连接不可用，请稍候重试', 'top', false, 3000);
+                //      return;
+                //}
+
+                //判断时间
+
+                if(StringToDate(wish.startDatetime) > StringToDate(wish.endDatetime)){
+
+                    //ionic toast
+                    ionicToast.show('开始时间晚于结束时间', 'top', false, 3000);
+                    return;
+                }
+
+
+                //加载动作显示“正在提交”
+                $ionicLoading.show();
+
+                
+                // $timeout(function () {
+                //     $ionicLoading.hide();
+                //     $state.go("tab.sysmatchRecommemd",{"promoID": $scope.promotion.id});
+                    
+                // }, 3000);
+
+            //暂时注释
+                var matchType = ""
+                //-----------开始http请求
+                if(wish.matchType == 0){
+                    matchType = "system_match";
+                }else if (wish.matchType == 1) {
+                    matchType = "user_create";
+                }else if (wish.matchType == 2) {
+                    matchType = "user_join";
+                }else{
+
+                }
+                //首先创建wish
+                var params = new Object();
+                if(wish.matchType == 1){
+                    params = {
+                    "customer_id": $rootScope.userid,
+                    "wish_count": wish.clothCount,
+                    "cobuy_id" : wish.cobuyID
+                    };
+                }else{
+                    params = {
+                    "customer_id": $rootScope.userid,
+                    "wish_count": wish.clothCount,
+                    "wish_time_start": wish.startDatetime,
+                    "wish_time_end": wish.endDatetime
+                    };
+                }
+
+                $http.post("http://api.yiave.com/v1/pomotions/"+ $scope.promotion.id +"/"+ $scope.promotion.type +"/wishs/" + matchType,
+                 params)
+                .then(function (response) {
+                    /* success*/ 
+
+                    if(wish.matchType == 0){
+                        //wish, cobuy 推荐列表
+                        $scope.recomList = response.data;
+                        $ionicModal.fromTemplateUrl('templates/sysmatch-recommend-modal.html', {
+                            scope: $scope,
+                            animation: 'slide-in-up'
+                        }).then(function(modal) {
+                            $scope.recommendModal = modal;
+                            modal.show();
+                        });
+                        
+
+                    }else if (wish.matchType == 1) {    
+                        
+                        ionicToast.show('创建成功', 'top', false, 3000);  
+
+                        $scope.cobuy = response.data;
+                        $scope.cobuyModalTitle="您创建的约买信息为：";
+                        //您创建的cobuy: cobuy信息
+                        $ionicModal.fromTemplateUrl('templates/usermatch-cobuyinfo-modal.html', {
+                            scope: $scope,
+                            animation: 'slide-in-up'
+                        }).then(function(modal) {
+                            $scope.cobuyinfoModal = modal;
+                            modal.show();
+                        });
+
+
+                    }else if (wish.matchType == 2) {
+                                      
+                        ionicToast.show('加入成功', 'top', false, 3000);
+                        $scope.cobuy = response.data;
+                        //您加入的cobuy: cobuy信息 
+                        $scope.cobuyModalTitle="您加入的约买信息为：";
+                        //您创建的cobuy: cobuy信息
+                        $ionicModal.fromTemplateUrl('templates/usermatch-cobuyinfo-modal.html', {
+                            scope: $scope,
+                            animation: 'slide-in-up'
+                        }).then(function(modal) {
+                            $scope.cobuyinfoModal = modal;
+                            modal.show();
+                        });
+                        
+                    }else{
+
+                    }
+                 }, function (response) {
+                     /* failure */ 
+                    ionicToast.show('提交失败', 'top', false, 3000);
+                    
+                 }).catch(function(response) {
+
+                    })
+                    .finally(function(){
+                        $ionicLoading.hide();
+                });   
+                    
+            }
+            $scope.stateToHome = function () {
+                $scope.cobuyinfoModal.hide();
+                $state.go("tab-home");
+            }
+
+            $scope.choseMatch = function (type, id) {
+                if(type=="wish"){
+
+                }else if (type=="cobuy") {
+                    
+                }else{
+
+                }
+                
+                
+            }
+
+
+            
     }])
+
+
+
 
     .controller('meCtrl',['$scope', '$rootScope','userService', function($scope, $rootScope, userService){
         $scope.$on("$ionicView.beforeEnter", function(){
@@ -498,10 +708,10 @@ angular.module('yiave.controllers', [])
     
     }])
 
-    .controller('userCtrl', ['$scope','$http','$state', '$rootScope','userService', '$ionicModal','$ionicPopup',
+    .controller('userCtrl', ['$scope','$http','$state', '$rootScope','userService', '$ionicModal','$ionicLoading',
         '$cookies', '$timeout',
      //'$cordovaImagePicker',' $cordovaCamera',
-        function($scope, $http, $state, $rootScope, userService, $ionicModal,$ionicPopup,$cookies,$timeout){
+        function($scope, $http, $state, $rootScope, userService, $ionicModal,$ionicLoading,$cookies,$timeout){
 
             $scope.$on("$ionicView.beforeEnter", function(){
                 $scope.user = userService.getUser();
@@ -549,53 +759,24 @@ angular.module('yiave.controllers', [])
             $scope.saveNickname = function(nickname){
 
                 if(nickname == $scope.user.nickname){
-                    var alertPopup = $ionicPopup.alert({
-                        title: '提示',
-                        template: '新昵称不能与原昵称相同',
-                        okType: 'button-positive',
-                        okText: '知道了'
-                    });
-                    alertPopup.then(function(res) {
-
-                    });
-
-                    $timeout(function () {
-                        alertPopup.close();
-                    } ,2000)
+                    ionicToast.show('新昵称与原昵称相同', 'top', false, 3000);                   
                     return;
                 }
 
                 //判断网络连接状态
+            // if(navigator.connection.type == Connection.NONE){
+            //     ionicToast.show('网络连接不可用，请稍候重试', 'top', false, 3000);
+            //     return;
+            // }
 
-                var loadingPopup = $ionicPopup.alert({
-
-                    title: '提交中',
-                    //template: '提交中',
-                    okType: 'button-positive',
-                    okText: ' '
-                });
+                $ionicLoading.show()
 
                 $http.put("http://api.yiave.com/v1/customers/"+$rootScope.userid, {
                     params: {'nickname': nickname}})
                 .then(function(response){
                     userService.update('nickname',nickname);
-
-                    var alertPopup = $ionicPopup.alert({
-                        title: '提示',
-                        template: '修改成功',
-                        okType: 'button-positive',
-                        okText: '知道了'
-                    });
-                    alertPopup.then(function(res) {
-
-                    });
-
-                    $timeout(function () {
-                        alertPopup.close();
-                        //$state.go('userInfo');
-                        $scope.nicknameModal.hide();
-
-                    } ,2000)     
+                    ionicToast.show('修改成功', 'top', false, 3000);
+                    $scope.nicknameModal.hide();   
                     $scope.user.nickname = nickname;
                     
                 },function (response) {
@@ -605,7 +786,7 @@ angular.module('yiave.controllers', [])
 
                 })
                 .finally(function(){
-                    loadingPopup.close();
+                    $ionicLoading.close();
                 });
 
             }
@@ -614,91 +795,35 @@ angular.module('yiave.controllers', [])
 
                 if(pwd != pwdConfirm){
                     //两次密码输入不一致
-                    var alertPopup = $ionicPopup.alert({
-                        title: '提示',
-                        template: '两次密码输入不一致',
-                        okType: 'button-positive',
-                        okText: '知道了'
-                    });
-                    alertPopup.then(function(res) {
-
-                    });
-
-                    $timeout(function () {
-                        alertPopup.close();
-                        
-                    } ,2000)
+                    ionicToast.show('两次密码输入不一致', 'top', false, 3000);
                     return;
                 }
 
                 if(pwd == currentPwd){
-                    //两次密码输入不一致
-                    var alertPopup = $ionicPopup.alert({
-                        title: '提示',
-                        template: '新密码不能与原密码相同',
-                        okType: 'button-positive',
-                        okText: '知道了'
-                    });
-                    alertPopup.then(function(res) {
-
-                    });
-
-                    $timeout(function () {
-                        alertPopup.close();
-                        
-                    } ,2000)
+                    //新旧密码相同
+                    ionicToast.show('新密码与原密码相同', 'top', false, 3000);
                     return;
                 }
 
                 //判断网络连接状态
+            // if(navigator.connection.type == Connection.NONE){
+            //      ionicToast.show('网络连接不可用，请稍候重试', 'top', false, 3000);
+            //      return;
+            // }
+                $ionicLoading.show();
 
-
-                var loadingPopup = $ionicPopup.alert({
-
-                    title: '提交中',
-                    //template: '提交中',
-                    okType: 'button-positive',
-                    okText: ' '
-                });
                 $http.put("http://api.yiave.com/v1/customers/"+$rootScope.userid+"/password",{params:{
                     'old_password': hex_md5(currentPwd),
                     'password': hex_md5(pwd)
                 }}).then(function (response) {
-                    //修改成功
-                    var alertPopup = $ionicPopup.alert({
-                        title: '提示',
-                        template: '密码修改成功',
-                        okType: 'button-positive',
-                        okText: '知道了'
-                    });
-                    alertPopup.then(function(res) {
+                    ionicToast.show('修改成功', 'top', false, 3000);
+                    $scope.passwordModal.hide();
 
-                    });
-
-                    $timeout(function () {
-                        alertPopup.close();
-                        $scope.passwordModal.hide();
-                    } ,2000)
-                    
-
-                    //$state.go("userInfo");
                 },function (response) {
-
                     //当前密码错误
                     if(response.status == 500){
-                        var alertPopup = $ionicPopup.alert({
-                            title: '提示',
-                            template: '当前密码错误',
-                            okType: 'button-positive',
-                            okText: '知道了'
-                        });
-                        alertPopup.then(function(res) {
-
-                        });
-
-                        $timeout(function () {
-                            alertPopup.close();
-                        } ,2000)
+                        ionicToast.show('当前密码错误', 'top', false, 3000);
+                        
                     }
                                
                 })
@@ -706,7 +831,7 @@ angular.module('yiave.controllers', [])
 
                 })
                 .finally(function(){
-                    loadingPopup.close();
+                    $ionicLoading.close();
                 });
 
             }
@@ -714,54 +839,25 @@ angular.module('yiave.controllers', [])
             $scope.saveRealname = function (realname) {
 
                 if(realname == $scope.user.realname){
-                    var alertPopup = $ionicPopup.alert({
-                        title: '提示',
-                        template: '输入姓名不能与原姓名相同',
-                        okType: 'button-positive',
-                        okText: '知道了'
-                    });
-                    alertPopup.then(function(res) {
-
-                    });
-
-                    $timeout(function () {
-                        alertPopup.close();
-                    } ,2000)
+                    ionicToast.show('输入姓名与原姓名相同', 'top', false, 3000);
                     return;
                 }
 
                 //判断网络连接状态
+            // if(navigator.connection.type == Connection.NONE){
+            //     ionicToast.show('网络连接不可用，请稍候重试', 'top', false, 3000);
+            //     return;
+            // }
 
-                var loadingPopup = $ionicPopup.alert({
-
-                    title: '提交中',
-                    //template: '提交中',
-                    okType: 'button-positive',
-                    okText: ' '
-                });
+                $ionicLoading.show();
 
                 $http.put("http://api.yiave.com/v1/customers/"+$rootScope.userid, {
                     params: {'realname': realname}
                 }).then(
                     function(response){
                         userService.update('realname',realname);
-
-                        var alertPopup = $ionicPopup.alert({
-                            title: '提示',
-                            template: '修改成功',
-                            okType: 'button-positive',
-                            okText: '知道了'
-                        });
-                        alertPopup.then(function(res) {
-
-                        });
-
-                        $timeout(function () {
-                            alertPopup.close();
-                        //$state.go('userInfo');
-                        $scope.realnameModal.hide();
-
-                    } ,2000)     
+                        ionicToast.show('修改成功', 'top', false, 3000);
+                        $scope.realnameModal.hide();    
                         $scope.user.realname = realname;
                     },function (response) {
                        /* body... */ 
@@ -771,7 +867,7 @@ angular.module('yiave.controllers', [])
 
                 })
                 .finally(function(){
-                    loadingPopup.close();
+                    $ionicLoading.close();
                 });
             }
 

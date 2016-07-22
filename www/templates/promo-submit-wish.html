@@ -1,0 +1,123 @@
+<ion-view view-title="加入约买" hide-tabs=true>
+	<ion-content has-subheader="false">
+		<form name="wishForm" ng-submit="submitWish(wish)" novalidate>
+		<ion-list>
+			<label class="item item-input item-select" >
+				<div class="input-label">
+					购买件数
+				</div>
+				<select ng-model="wish.clothCount" ng-options="value for value in clothCountOption">
+				</select>
+			</label>
+			<label class="item item-input item-select" ng-model="wish.matchType">
+				<div class="input-label">
+					匹配方式
+				</div>
+				<select ng-model="wish.matchType" ng-options="item.id as item.label for item in matchTypeOption">
+				</select>
+			</label>
+			<div class="item item-input" ng-show="wish.matchType != 1">
+				<span class="input-label">开始时间</span>
+    			<input type="text" placeholder= "点击选择时间" ng-click="openStartDP()"  
+    			ng-model="wish.startDatetime" required>
+			</div>
+			<div class="item item-input" ng-show="wish.matchType != 1">
+				<span class="input-label">结束时间</span>
+    			<input type="text" placeholder= "点击选择时间" ng-click="openEndDP()"
+    			ng-model="wish.endDatetime" required>
+			</div>
+			
+			
+			<div class="item item-input" ng-show="wish.matchType == 1">
+				<span class="input-label">约买ID</span>
+				<input type="text" ng-model="wish.cobuyID">
+			</div>
+			<button class="button button-block button-assertive" type="submit" 
+			ng-disabled="wishForm.$invalid">提交</button>
+		</ion-list>
+		</form>
+
+	</ion-content>
+</ion-view>
+
+<script id="templates/usermatch-cobuyinfo-modal.html" type="text/ng-template">
+	<ion-modal-view>
+		<ion-content>
+			<h1>{{cobuyModalTitle}}</h1>
+			<ion-list>
+				<ion-item href="#">
+					<!-- promotion info -->
+					<span class="input-label">店铺:</span>				
+					<span class="input-label">地址</span>				
+					<span class="input-label">促销信息: {{promotion.description}}</span>
+					
+					
+					<!-- cobuy info -->
+					<span class="input-label">购买件数: {{cobuy.promotion_count}}</span>					
+					<span class="input-label">约定时间: {{cobuy.min_time}}-{{cobuy.max_time}}</span>		
+					<span class="input-label">匹配是否完成: ({{is_match_completed}}==0)?否:是</span>
+					
+				</ion-item>
+			</ion-list>
+			<a href="stateToHome()">返回首页</a>
+		</ion-content>
+	</ion-modal-view>
+</script>
+
+<script id="templates/sysmatch-recommend-modal.html" type="text/ng-template">
+	<ion-modal-view>
+		<ion-header-bar class="bar bar-header bar-assertive">
+
+			<button class="button button-clear button-primary" ng-click="recommendModal.hide()">取消</button>
+			<h1 class="title">系统推荐匹配</h1>
+			
+		</ion-header-bar>
+		<ion-content>
+			<ion-tabs tabs-top class="tabs-positive">
+				<ion-tab title="意愿" href="tab-link">
+					<ion-list class="card">
+						<ion-item class="item-avatar" ng-repeat="item in recomList.wishs" href="#">			
+							<div class="item-avatar">
+								<img src="mcfly.jpg">
+								<h2>发起人：Marty McFly</h2>
+								<p>2016-07-12</p>
+							</div>
+							<div class="item-body">		
+								<p>
+									<span class="input-label">已凑单件数: {{item.promotion_count}}</span>
+									<span class="input-label">约定时间: {{item.min_time}}-{{item.max_time}}</span>
+								</p>
+								<p>
+									<a href="choseMatch('wish', item.id)" class="subdued">参与</a>
+
+								</p>
+							</div>
+						</ion-item>
+					</ion-list>
+					
+				</ion-tab>
+				<ion-tab title="约买" href="tab-link">
+					<ion-list>
+						<ion-item ng-repeat="item in recomList.cubuys" href="choseMatch('cobuy', item.id)">
+							<div class="item-avatar">
+								<img src="mcfly.jpg">
+								<h2>发起人：Marty McFly</h2>
+								<p>2016-07-12</p>
+							</div>
+							<div class="item-body">		
+								<p>
+									<span class="input-label">已凑单件数: {{item.promotion_count}}</span>
+									<span class="input-label">约定时间: {{item.min_time}}-{{item.max_time}}</span>
+								</p>
+								<p>
+									<a href="choseMatch('cobuy', item.id)" class="subdued">参与</a>
+
+								</p>
+							</div>
+						</ion-item>
+					</ion-list>
+				</ion-tab>
+			</ion-tabs>
+		</ion-content>
+	</ion-modal-view>
+</script>

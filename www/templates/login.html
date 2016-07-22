@@ -15,8 +15,8 @@
 						<input type="text" placeholder="手机/邮箱/用户名" style="padding: 0px;" name="account" ng-model="user.account" required>
 					</div>
 
-					<div class="col-10">
-						<i class="icon ion-close-round" ng-click="reset(loginForm.account)"
+					<div class="col-10" ng-click="reset('account')">
+						<i class="icon ion-close-round" 
 						style="color: rgb(209, 216, 227); padding-left: 10px;"></i>
 					</div>
 				</div>         
@@ -28,7 +28,8 @@
 						<input type="password" placeholder="密码" style="padding: 0px;" name="password" 
 						ng-model="user.password" required>
 					</div>
-					<div class="col-10"><i class="icon ion-close-round" ng-click="reset(loginForm.password)"
+					<div class="col-10" ng-click="reset('password')">
+						<i class="icon ion-close-round" 
 						style="color: rgb(209, 216, 227); padding-left: 10px;"></i>
 					</div>
 				</div>
@@ -36,7 +37,8 @@
 		</ion-list>
 
       <div class="padding" style="padding-bottom: 0px;">
-        <button type="submit" class="button button-block button-assertive"  ng-disabled="loginForm.$invalid">登录
+        <button type="submit" class="button button-block button-assertive"  
+        ng-disabled="loginForm.$invalid">登录
         </button>
       </div>
       </form>

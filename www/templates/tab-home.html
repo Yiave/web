@@ -18,18 +18,16 @@
 		<span style="margin-top: 7px;">长沙 <i class="icon ion-chevron-down"></i></span>
 		<!-- <input type="text" placeholder="搜索商铺" width="70%"/> -->
 
-
-		
 			<!-- 
 					
 			<div class="button button-icon icon ion-ios-bell" ui-sref="tab.notice"></div> -->
-
-		
 
 	</ion-nav-buttons>
 
 	
 	<ion-content>
+			<!--End-slider-->
+			<ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
 
 			<!--start-bannner-->	
 			<div class="banner">
@@ -41,22 +39,32 @@
 
 					</ul>
 				</div>
-			</div>
-
-			<!--End-slider-->
-		<ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
+			</div>		
 
 			<ion-list class="mui-table-view store-list" >
 				<ion-item ng-repeat="promo in promotions" ng-click="promoDetails(promo.id)">
 
-					<p class="img-left"><img src="images/logo_nike.jpg" alt="" /></p>
+					<!-- <p class="img-left"><img src="images/logo_nike.jpg" alt="" /></p>
 					<div class="caption">
 						<h4>Nike</h4>
 						<p><span>折</span>{{promo.title}}</p>
 						<p>{{promo.description}}</p>
-
+					
 					</div>
 					<p class="text-address">地址：黄兴南路步行商业街1F<span>< 100米</span></p>
+					 -->
+					<div class="item-avatar">
+						<img src="images/logo_nike.jpg">
+						<h2>耐克篮球鞋专场</h2>
+						<p>2016-07-02 14:28:45</p>
+					</div>
+
+					<div class="item-body">
+						<img class="full-image" src="images/p4.jpg">
+						<p><span>折</span>{{promo.title}}</p>
+						<p>{{promo.description}}</p>
+						<p class="text-address">地址：黄兴南路步行商业街1F</p>
+					</div>
 					
 				</ion-item>
 			</ion-list>
@@ -68,6 +76,5 @@
   				distance="1%">
   			</ion-infinite-scroll>
 		</ion-content>
+
 	</ion-view>
-
-

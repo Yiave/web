@@ -27,6 +27,9 @@
   background-size: 0;
   line-height: $tabs-height;
 
+  -webkit-transition: all linear 0.2s;
+  transition: all linear 0.2s;
+
   @media (min--moz-device-pixel-ratio: 1.5),
          (-webkit-min-device-pixel-ratio: 1.5),
          (min-device-pixel-ratio: 1.5),
@@ -399,6 +402,10 @@ ion-tabs {
 .tabs-item-hide > .tabs,
 .tabs.tabs-item-hide {
   display: none;
+  -webkit-transition: all linear 0.2s;
+  transition: all linear 0.2s;
+  bottom: -$tabs-height;
+  display: flex;
 }
 
 .tabs-icon-top > .tabs .tab-item,

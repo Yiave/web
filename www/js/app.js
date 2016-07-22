@@ -4,18 +4,44 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 angular.module('yiave', ['ionic', 'yiave.controllers', 'yiave.routes', 'yiave.directives',
- 'yiave.services', 'ngCookies','ngCordova'
+ 'yiave.services', 'ngCookies','ngCordova', 'ionic-datepicker', 'ionic-timepicker', 'ionic-toast'
  //'monospaced.elastic'
  ])
 
 
-.config(['$ionicConfigProvider', '$httpProvider', function($ionicConfigProvider, $httpProvider) {
+.config(['$ionicConfigProvider', '$httpProvider', 'ionicDatePickerProvider', 'ionicTimePickerProvider',
+    function($ionicConfigProvider, $httpProvider, ionicDatePickerProvider, ionicTimePickerProvider) {
 
     $ionicConfigProvider.tabs.position('bottom'); // other values: top
 
     //$httpProvider.defaults.headers.get = {"X-Authorization": "api_key"};
 
     $httpProvider.defaults.headers.common = {"Authorization": "api_key"};
+
+    var datePickerObj = {
+      //inputDate: new Date(),
+      setLabel: '设置',
+      todayLabel: '今天',
+      closeLabel: '关闭',
+      mondayFirst: true,
+      weeksList: [ "日", "一", "二", "三", "四", "五", "六"],
+      monthsList: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
+      templateType: 'popup',
+      showTodayButton: true,
+      dateFormat: 'dd MMMM yyyy',
+      closeOnSelect: false,
+      //disableWeekdays: [6]
+    };
+    ionicDatePickerProvider.configDatePicker(datePickerObj);
+
+    var timePickerObj = {
+      //inputTime: ((new Date()).getHours() * 60 * 60),
+      format: 24,
+      step: 15,
+      setLabel: '设置',
+      closeLabel: '关闭'
+    };
+    ionicTimePickerProvider.configTimePicker(timePickerObj);
 
 }])
 
@@ -43,9 +69,9 @@ angular.module('yiave', ['ionic', 'yiave.controllers', 'yiave.routes', 'yiave.di
 
 
     var url = "";
-    /*if (ionic.Platform.isAndroid()) {
+    if (ionic.Platform.isAndroid()) {
         url = "/android_asset/www/";
-    }*/
+    }
 
     //get the userid from cookie
     /*var userid = $cookies.get('userid');
@@ -71,7 +97,6 @@ angular.module('yiave', ['ionic', 'yiave.controllers', 'yiave.routes', 'yiave.di
 
     }*/
 
-    //userService.init();
     var userid = $cookies.get('userid');
 
     if(userid == undefined){
@@ -85,36 +110,6 @@ angular.module('yiave', ['ionic', 'yiave.controllers', 'yiave.routes', 'yiave.di
         $rootScope.hasLogin = true;
         $rootScope.userid = userid;
     }
-
-
-
-    /*
-    
-
-    */
-
-
-    /*
-        {
-  "business_id": 1, 
-  "description": "\u4ec5\u5269\u4e09\u5929", 
-  "end_time": "Tue, 07 Jun 2016 12:00:00 GMT", 
-  "id": 1, 
-  "image": "www.image.com", 
-  "start_time": "Fri, 03 Jun 2016 12:00:00 GMT", 
-  "title": "\u590f\u88c5\u5168\u573a\u4e00\u6298"
-}
-    */
-
-    /*$http.get("http://api.yiave.com/v1/promotions/1")
-    .then(function (response) {
-        
-        
-        console.log('');
-    },function (response) {
-         
-        console.log('');
-    })*/
 
 
     $http.get(url + "data/json/messages.json").then(function(response) {

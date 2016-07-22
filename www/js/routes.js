@@ -2,8 +2,7 @@ angular.module('yiave.routes', [])
 
 .config(function($stateProvider, $urlRouterProvider) {
    
-
-    //默认状态是tab.home
+    //验证链接处理
     $urlRouterProvider.when("/account/confirm/{token}", function($state ,$match, $stateParams, $http, $rootScope, $cookies,userService){
         //var path = $location.path();
         //console.log(path);
@@ -42,8 +41,6 @@ angular.module('yiave.routes', [])
                 .error(function (data, status, headers, config){
 
                 })
-                
-
             }
         })
         .error(function(data, status, headers, config){
@@ -52,23 +49,26 @@ angular.module('yiave.routes', [])
 
     })
 
-
+    //默认状态是tab.home
     .otherwise("/tab/home");
     
     $stateProvider
-        //如果是tab状态被激活, 加载tabs.html模板, 注意这里的abstract: true, 表示tab只有在子状态显示的时候, 它才显示, 它本身是无法主动被激活的
+        //------------------------------tabs-----------------------------------
+
         .state("tab", {
             url: "/tab",
             abstract: true,
             templateUrl: "templates/tabs.html",
         })
-        //tab.message状态被激活,会显示tab-message.html模板, tab.message状态是在tabs.html中的ui-sref中设置的. 同时注意views中的tab-message名字, 这个也需要跟tabs.html中的ion-nav-view中的name一致哦
+        //tab.message状态被激活,会显示tab-message.html模板, 
+        //tab.message状态是在tabs.html中的ui-sref中设置的. 
+        //同时注意views中的tab-message名字, 这个需要跟tabs.html中的ion-nav-view中的name一致
         .state('tab.home', {
             url: '/home',
             views: {
                 'tab-home': {
                     templateUrl: 'templates/tab-home.html',
-                    controller: "promotionCtrl",
+                    controller: "homeCtrl",
                     // resolve: {
                     //     getPromotions : function ($http) {
                             
@@ -88,7 +88,7 @@ angular.module('yiave.routes', [])
             views: {
                 'tab-chat': {
                     templateUrl: 'templates/tab-chat.html',
-                    controller: "messageCtrl"
+                    controller: "chatCtrl"
                 
                 }
             }
@@ -105,28 +105,39 @@ angular.module('yiave.routes', [])
             
         })
         
-
+        //----------------------------Promotion-------------------------------
         .state('promoDetails',{
             url: '/promoDetails/:promoID',
-            //url: '/promoDetails',
-            views: {
-                '': {
+            views:{
+                '':{
                     templateUrl: 'templates/promo-details.html',
-                    controller: 'promotionDetailCtrl'
-                    
+                    controller: 'promotionCtrl'
                 }
-            } 
+            }
+            
+        })
 
+        .state('submitWish', {
+            url: '/promoDetails/:promoID/submitWish',
+            views:{
+                '':{
+                    templateUrl: 'templates/promo-submit-wish.html',
+                    controller: 'promotionCtrl'
+                }
+            }
+            
         })
 
 
+        //------------------------------Chat--------------------------------------
         .state('chatMessage',{
             url: '/chatMessage/:messageId',
             templateUrl: 'templates/chat-message.html',
-            controller: "messageDetailCtrl"
+            controller: "messageCtrl"
                           
         })
 
+        //-------------------------------Notice---------------------------------------
         .state('notice', {
             url: '/notice',
             templateUrl: 'templates/notice.html'
@@ -157,6 +168,7 @@ angular.module('yiave.routes', [])
            
         })
 
+        //--------------------------------User--------------------------------------
         .state('userInfo', {
             url: '/userInfo',
             templateUrl: 'templates/user-info.html',
@@ -217,6 +229,7 @@ angular.module('yiave.routes', [])
                
         })
 
+        //--------------------------------Login and register---------------------------------
         .state('login',{
             url: '/login',
             templateUrl: 'templates/login.html'
@@ -246,7 +259,7 @@ angular.module('yiave.routes', [])
         .state('mailRegister',{
             url: '/register',
             templateUrl: 'templates/mail-register.html',
-            controller: "registerCtrl"              
+            //controller: "registerCtrl"              
         })
 
         .state('waitToConfirm',{

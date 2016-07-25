@@ -262,32 +262,6 @@ angular.module('yiave.services',[])
             },
 
             getPromotionById: function (promoID) {
-/*
-{
-  "business_id": 1, 
-  "description": "\u4ec5\u5269\u4e09\u5929", 
-  "end_time": "Tue, 07 Jun 2016 12:00:00 GMT", 
-  "id": 1, 
-  "image": "www.image.com", 
-  "promotion_count": null, 
-  "start_time": "Fri, 03 Jun 2016 12:00:00 GMT", 
-  "title": "\u590f\u88c5\u5168\u573a\u4e00\u6298", 
-  "type": null
-}
-*/
-                $http.get("http://api.yiave.com/v1/promotions/"+promoID)
-                .then(function (response) {
-                    var promotion = response.data;
-                    localStorageService.update("promotion_"+promotion.id, promotion);
-
-                    console.log('');
-                },function (response) {
-
-                    console.log('');
-                })
-            },
-
-            getPromotionByIdLocal: function (promoID) {
                 return localStorageService.get(promoID);
             }
 

@@ -387,10 +387,38 @@ angular.module('yiave.controllers', [])
             });
 
             $scope.promoDetails = function (promoID) {
-
-
                 //promotionService.getPromotionById(promoID)  //暂时注释掉
-                $state.go("tab.promoDetails",{"promoID": promoID});
+                                //判断网络状态
+            // if(navigator.connection.type == Connection.NONE){
+            //     ionicToast.show('网络连接不可用，请稍候重试', 'top', false, 3000);           
+            //     return;   
+            // }
+                /*
+                {
+                  "business_id": 1, 
+                  "description": "\u4ec5\u5269\u4e09\u5929", 
+                  "end_time": "Tue, 07 Jun 2016 12:00:00 GMT", 
+                  "id": 1, 
+                  "image": "www.image.com", 
+                  "promotion_count": null, 
+                  "start_time": "Fri, 03 Jun 2016 12:00:00 GMT", 
+                  "title": "\u590f\u88c5\u5168\u573a\u4e00\u6298", 
+                  "type": null
+                }
+                */
+                $http.get("http://api.yiave.com/v1/promotions/"+promoID)
+                .then(function (response) {
+                    var promotion = response.data;
+                    localStorageService.update("promotion_"+promotion.id, promotion);
+
+                    $state.go("tab.promoDetails",{"promoID": promoID});             
+                },function (response) {
+
+                    
+                })
+
+
+                
                
 
             }
@@ -468,7 +496,7 @@ angular.module('yiave.controllers', [])
 
                 //if(data.stateName == "tab.promoDetails" && data.fromCache == false){
                 if(data.fromCache == false){
-                    $scope.promotion = promotionService.getPromotionByIdLocal("promotion_"+$stateParams.promoID);
+                    $scope.promotion = promotionService.getPromotionById("promotion_"+$stateParams.promoID);
                     $scope.promotion.start_date = new Date($scope.promotion.start_time).toLocaleDateString();
                     $scope.promotion.end_date = new Date($scope.promotion.end_time).toLocaleDateString();
                     $scope.promotion.type = "clothing"; 

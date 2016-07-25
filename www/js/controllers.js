@@ -123,7 +123,7 @@ angular.module('yiave.controllers', [])
         messageService.updateMessage(message);
     };
     $scope.messageDetils = function(message) {
-        $state.go("chatMessage", {
+        $state.go("tab.chatMessage", {
             "messageId": message.id
         });
     };
@@ -165,8 +165,8 @@ angular.module('yiave.controllers', [])
     ])
 
 
-.controller('loginCtrl',['$scope', '$http', '$state' ,'$rootScope','$cookies','userService', '$ionicLoading','$timeout',
-    function($scope, $http, $state,$rootScope,$cookies,userService,$ionicLoading,$timeout){
+.controller('loginCtrl',['$scope', '$http', '$state' ,'$rootScope','$cookies','userService', '$ionicLoading','$timeout','ionicToast',
+    function($scope, $http, $state,$rootScope,$cookies,userService,$ionicLoading,$timeout,ionicToast){
 
         //注释行$setPristine不管用，只能采用暴力解法
         $scope.reset = function(str) {
@@ -237,13 +237,14 @@ angular.module('yiave.controllers', [])
                 
             })
             .finally(function(){
-                $ionicLoading.close();
+                $ionicLoading.hide();
             });
         }
     }
 ])
 
-.controller('registerCtrl', function($scope, $http, $state, $timeout){
+.controller('registerCtrl',[ '$scope', '$http', '$state', '$timeout','ionicToast',
+    function($scope, $http, $state, $timeout,ionicToast){
 
     //$scope.pwdNotSame = false;
 
@@ -364,12 +365,12 @@ angular.module('yiave.controllers', [])
         }
         );
     }
-})
+}])
 
 
     
-    .controller('homeCtrl', ['$scope','$http', '$state','promotionService','localStorageService',
-        function($scope, $http,$state, promotionService, localStorageService){
+    .controller('homeCtrl', ['$scope','$http', '$state','promotionService','localStorageService','ionicToast',
+        function($scope, $http,$state, promotionService, localStorageService, ionicToast){
         
             $(".flexslider").flexslider({
                 slideshowSpeed: 2000, //展示时间间隔ms
@@ -389,7 +390,7 @@ angular.module('yiave.controllers', [])
 
 
                 //promotionService.getPromotionById(promoID)  //暂时注释掉
-                $state.go("promoDetails",{"promoID": promoID});
+                $state.go("tab.promoDetails",{"promoID": promoID});
                
 
             }
@@ -440,16 +441,19 @@ angular.module('yiave.controllers', [])
 
 
     .controller('promotionCtrl', ['$scope','$http','$stateParams','promotionService', '$state',
-        'ionicDatePicker','ionicTimePicker','ionicToast', '$rootScope', '$ionicLoading','$timeout',
+        'ionicDatePicker','ionicTimePicker','ionicToast', '$rootScope', '$ionicLoading','$timeout','$ionicModal',
         function($scope, $http, $stateParams, promotionService,$state,ionicDatePicker,
-            ionicTimePicker,ionicToast, $rootScope, $ionicLoading, $timeout){
+            ionicTimePicker,ionicToast, $rootScope, $ionicLoading, $timeout, $ionicModal){
 
-
+ 
             $scope.wish = new Object();
             $scope.wish.startDatetime = "";
             $scope.wish.endDatetime = "";
             $scope.wish.clothCount = 1;
             $scope.wish.matchType = 0;
+
+            $scope.promotion = new Object();
+            $scope.clothCountOption = new Array();
 
             $scope.matchTypeOption = [
                 {label: "系统匹配", id : 0},
@@ -458,25 +462,31 @@ angular.module('yiave.controllers', [])
             ]
 
 
-            $scope.$on("$ionicView.beforeEnter", function(){
-                
-                $scope.promotion = promotionService.getPromotionByIdLocal("promotion_"+$stateParams.promoID);
-                $scope.promotion.start_date = new Date($scope.promotion.start_time).toLocaleDateString();
-                $scope.promotion.end_date = new Date($scope.promotion.end_time).toLocaleDateString();
+            $scope.$on("$ionicView.beforeEnter", function(event, data){
 
-                $scope.promotion.type = "clothing"; 
-                
-                var closeCount = 4 //$scope.promotion.promotion_count ;暂时注释  
-                $scope.clothCountOption = new Array();
-                for (var i = 1; i < closeCount; i++) {
-                    $scope.clothCountOption.push(i);
+                event.preventDefault();
+
+                //if(data.stateName == "tab.promoDetails" && data.fromCache == false){
+                if(data.fromCache == false){
+                    $scope.promotion = promotionService.getPromotionByIdLocal("promotion_"+$stateParams.promoID);
+                    $scope.promotion.start_date = new Date($scope.promotion.start_time).toLocaleDateString();
+                    $scope.promotion.end_date = new Date($scope.promotion.end_time).toLocaleDateString();
+                    $scope.promotion.type = "clothing"; 
+                    
+                    var closeCount = 4 //$scope.promotion.promotion_count ;暂时注释  
+                    
+                    for (var i = 1; i < closeCount; i++) {
+                        $scope.clothCountOption.push(i);
+                    }
                 }
 
+        
             });
+
 
             $scope.pageToSubmitWish =  function () {
                 
-                $state.go('submitWish', {"promoID": $scope.promotion.id});
+                $state.go('tab.submitWish', {"promoID": $scope.promotion.id});
             }
 
             
@@ -595,8 +605,20 @@ angular.module('yiave.controllers', [])
                     };
                 }
 
-                $http.post("http://api.yiave.com/v1/pomotions/"+ $scope.promotion.id +"/"+ $scope.promotion.type +"/wishs/" + matchType,
-                 params)
+                var api = "http://api.yiave.com/v1/pomotions/"+ $scope.promotion.id +"/"+ $scope.promotion.type +"/wishs/" + matchType;
+                
+                $.ajax({
+                    type: "POST",
+                    url: api,
+                    beforeSend: function (request) {
+                        request.setRequestHeader("Authorization", "api_key");
+                    },
+                    success: function (result) {
+                        console.log('');
+                    }
+                })
+
+                $http.head(api, params=params)
                 .then(function (response) {
                     /* success*/ 
 
@@ -651,7 +673,7 @@ angular.module('yiave.controllers', [])
                     ionicToast.show('提交失败', 'top', false, 3000);
                     
                  }).catch(function(response) {
-
+                    console.log('');
                     })
                     .finally(function(){
                         $ionicLoading.hide();
@@ -682,36 +704,37 @@ angular.module('yiave.controllers', [])
 
 
 
-    .controller('meCtrl',['$scope', '$rootScope','userService', function($scope, $rootScope, userService){
-        $scope.$on("$ionicView.beforeEnter", function(){
+    .controller('meCtrl',['$scope', '$rootScope','userService', 
+        function($scope, $rootScope, userService){
+            $scope.$on("$ionicView.beforeEnter", function(){
 
-            if($rootScope.hasLogin == false){
-                $scope.user = {
-                    "imagesrc" : 'images/user.png',
-                    "nickname": '游客'
+                if($rootScope.hasLogin == false){
+                    $scope.user = {
+                        "imagesrc" : 'images/user.png',
+                        "nickname": '游客'
+                    }
+                }else{
+                    $scope.user = userService.getUser();
+                    if($scope.user.nickname != null){
+                        
+                    }
+                    else if ($scope.user.username != null) {
+                        $scope.user.nickname = $scope.user.username;
+                    }
+                    else{
+                        $scope.user.nickname = $scope.user.telephone;
+
+                    }
                 }
-            }else{
-                $scope.user = userService.getUser();
-                if($scope.user.nickname != null){
                     
-                }
-                else if ($scope.user.username != null) {
-                    $scope.user.nickname = $scope.user.username;
-                }
-                else{
-                    $scope.user.nickname = $scope.user.telephone;
-
-                }
-            }
-                
-        });
+            });
     
     }])
 
     .controller('userCtrl', ['$scope','$http','$state', '$rootScope','userService', '$ionicModal','$ionicLoading',
-        '$cookies', '$timeout',
+        '$cookies', '$timeout','ionicToast',
      //'$cordovaImagePicker',' $cordovaCamera',
-        function($scope, $http, $state, $rootScope, userService, $ionicModal,$ionicLoading,$cookies,$timeout){
+        function($scope, $http, $state, $rootScope, userService, $ionicModal,$ionicLoading,$cookies,$timeout,ionicToast){
 
             $scope.$on("$ionicView.beforeEnter", function(){
                 $scope.user = userService.getUser();
@@ -771,8 +794,8 @@ angular.module('yiave.controllers', [])
 
                 $ionicLoading.show()
 
-                $http.put("http://api.yiave.com/v1/customers/"+$rootScope.userid, {
-                    params: {'nickname': nickname}})
+                $http.put("http://api.yiave.com/v1/customers/"+$rootScope.userid, 
+                    params = {'nickname': nickname})
                 .then(function(response){
                     userService.update('nickname',nickname);
                     ionicToast.show('修改成功', 'top', false, 3000);
@@ -786,7 +809,7 @@ angular.module('yiave.controllers', [])
 
                 })
                 .finally(function(){
-                    $ionicLoading.close();
+                    $ionicLoading.hide();
                 });
 
             }
@@ -812,10 +835,10 @@ angular.module('yiave.controllers', [])
             // }
                 $ionicLoading.show();
 
-                $http.put("http://api.yiave.com/v1/customers/"+$rootScope.userid+"/password",{params:{
+                $http.put("http://api.yiave.com/v1/customers/"+$rootScope.userid+"/password",params = {
                     'old_password': hex_md5(currentPwd),
                     'password': hex_md5(pwd)
-                }}).then(function (response) {
+                }).then(function (response) {
                     ionicToast.show('修改成功', 'top', false, 3000);
                     $scope.passwordModal.hide();
 
@@ -831,7 +854,7 @@ angular.module('yiave.controllers', [])
 
                 })
                 .finally(function(){
-                    $ionicLoading.close();
+                    $ionicLoading.hide();
                 });
 
             }
@@ -851,9 +874,9 @@ angular.module('yiave.controllers', [])
 
                 $ionicLoading.show();
 
-                $http.put("http://api.yiave.com/v1/customers/"+$rootScope.userid, {
-                    params: {'realname': realname}
-                }).then(
+                $http.put("http://api.yiave.com/v1/customers/"+$rootScope.userid, 
+                    params = {'realname': realname}
+                ).then(
                     function(response){
                         userService.update('realname',realname);
                         ionicToast.show('修改成功', 'top', false, 3000);
@@ -867,7 +890,7 @@ angular.module('yiave.controllers', [])
 
                 })
                 .finally(function(){
-                    $ionicLoading.close();
+                    $ionicLoading.hide();
                 });
             }
 

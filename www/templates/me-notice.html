@@ -1,15 +1,13 @@
-<ion-view view-title="我的消息">
-	<ion-nav-buttons side="left">
-		<button class="button button-icon icon ion-ios-arrow-back" ui-sref="tab.me" style='padding-top: 5px;'>
-		</button>	
-
-	</ion-nav-buttons>
+<ion-view view-title="通知" hide-tabs=true>
+	<!-- <ion-nav-buttons side="left">
+		<button class="button button-icon icon ion-ios-arrow-back" ui-sref="tab.me" style='padding-top: 5px;'></button>	
+	</ion-nav-buttons> -->
 
 	<ion-content has-subheader="false">
 		<div class="mui-content">
 			<ul class="mui-table-view store-list message-list">
 				<li class="mui-table-view-cell">
-					<a ui-sref="noticeList1">
+					<a ui-sref="tab.noticeList1">
 						<p class="img-left"><img src="images/icon-message1.png" alt="" /></p>
 						<div class="caption">
 							<h4>消息提醒</h4>
@@ -19,7 +17,7 @@
 					</a>
 				</li>
 				<li class="mui-table-view-cell">
-					<a ui-sref="noticeList2">
+					<a ui-sref="tab.noticeList2">
 						<p class="img-left"><img src="images/icon-message2.png" alt="" /></p>
 						<div class="caption">
 							<h4>最新折扣</h4>
@@ -29,7 +27,7 @@
 					</a>
 				</li>
 				<li class="mui-table-view-cell">
-					<a ui-sref="noticeList3">
+					<a ui-sref="tab.noticeList3">
 						<p class="img-left"><img src="images/icon-message3.png" alt="" /></p>
 						<div class="caption">
 							<h4>商品提醒</h4>

@@ -1,4 +1,4 @@
-<ion-view view-title="注册">
+<ion-view view-title="注册" hide-tabs=true>
 	<!-- <ion-nav-buttons side="left">
 		<button class="button button-icon icon ion-ios-arrow-back" ui-sref="login" style='padding-top: 5px;'>
 		</button>	
@@ -27,7 +27,7 @@
 		</div>
 
 		<div style="text-align: center;">
-			<a ui-sref="mailRegister">
+			<a ui-sref="tab.mailRegister">
 				<span style="color: rgb(239, 71, 58);">邮箱注册</span>
 			</a>
 		</div>
@@ -102,8 +102,8 @@
 	</ion-view>
 </script>
 
-<script id="templates/mail-register.html" type="text/ng-template">
-	<ion-view view-title="邮箱注册">	
+<script id="templates/mail-register.html" type="text/ng-template" >
+	<ion-view view-title="邮箱注册" hide-tabs=true>	
 		<ion-content has-subheader="false" ng-controller="registerCtrl">
 			<form name="registerForm" ng-submit="mailRegister(user)" novalidate>
 			<ion-list>

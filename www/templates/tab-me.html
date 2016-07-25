@@ -4,15 +4,15 @@
 		<div class="button button-outline button-light" ui-sref="notice">通知</div>
 	</ion-header-bar> -->
 	<ion-nav-buttons side="right">
-		<div class="button button-icon icon ion-ios-bell" ui-sref="notice"></div>
+		<div class="button button-icon icon ion-ios-bell" ui-sref="tab.notice"></div>
 	</ion-nav-buttons>
 
 
 	<ion-content>
 		<div class="mui-content index">
 			<div class="user-account-img mui-text-center">
-				<a ng-hide="hasLogin" ui-sref="login"><p><img ng-src="{{user.imagesrc}}" alt="" /></p></a>
-				<a ng-show="hasLogin" ui-sref="userInfo"><p><img src="images/user.jpg" alt="" /></p></a>
+				<a ng-hide="hasLogin" ui-sref="tab.login"><p><img ng-src="{{user.imagesrc}}" alt="" /></p></a>
+				<a ng-show="hasLogin" ui-sref="tab.userInfo"><p><img src="images/user.jpg" alt="" /></p></a>
 				
 				
 				<p class="name">{{user.nickname}}</p>
@@ -28,19 +28,19 @@
 			</div>
 			<ul class="user-account-title clearfix">
 				<li>
-					<a ui-sref="userComments">
+					<a ui-sref="tab.userComments">
 						<i class="icon-user1"></i>
 						<span>我的评价</span>
 					</a>
 				</li>
 				<li>
-					<a ui-sref="userFocus">
+					<a ui-sref="tab.userFocus">
 						<i class="icon-user1 icon-user2"></i>
 						<span>我的关注</span>
 					</a>
 				</li>
 				<li>
-					<a ui-sref="userRecommend">
+					<a ui-sref="tab.userRecommend">
 						<i class="icon-user1 icon-user3"></i>
 						<span>我的专属推荐</span>
 					</a>
@@ -64,7 +64,7 @@
 							</a>
 						</li>
 						<li class="contact-item">
-							<a ui-sref="businessInfo" class="item-link">
+							<a ui-sref="tab.businessInfo" class="item-link">
 								<div class="item-content">
 									<div class="item-inner">
 										<div class="item-title-row">
@@ -77,7 +77,7 @@
 							</a>
 						</li>
 						<li class="contact-item">
-							<a ui-sref="aboutUs" class="item-link">
+							<a ui-sref="tab.aboutUs" class="item-link">
 								<div class="item-content">
 									<div class="item-inner">
 										<div class="item-title-row">

@@ -1,9 +1,9 @@
-<ion-view view-title="登录">
-	<ion-nav-buttons side="left">
+<ion-view view-title="登录" hide-tabs=true>
+	<!-- <ion-nav-buttons side="left">
 		<button class="button button-icon icon ion-ios-arrow-back" ui-sref="tab.me" style='padding-top: 5px;'>
 		</button>	
 
-	</ion-nav-buttons>
+	</ion-nav-buttons> -->
 
 	<ion-content has-subheader="false">
 		<form name="loginForm" ng-submit="userLogin(user)" ng-controller="loginCtrl" novalidate>
@@ -50,7 +50,7 @@
       		</a>
       	</div>
       	<div class="col-50" style="text-align: right;">
-      		<a ui-sref="register">
+      		<a ui-sref="tab.register">
       			<span style="color: rgb(239, 71, 58);">注册</span>
       		</a>
       	</div>

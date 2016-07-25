@@ -106,22 +106,25 @@ angular.module('yiave.routes', [])
         })
         
         //----------------------------Promotion-------------------------------
-        .state('promoDetails',{
-            url: '/promoDetails/:promoID',
+        .state('tab.promoDetails',{
+            url: '/home/promoDetails/:promoID',
             views:{
-                '':{
-                    templateUrl: 'templates/promo-details.html',
+                'tab-home':{
+                    templateUrl: 'templates/home-promo-details.html',  
+                    prefetchTemplate: false,                 
                     controller: 'promotionCtrl'
+
                 }
             }
             
         })
 
-        .state('submitWish', {
-            url: '/promoDetails/:promoID/submitWish',
+        .state('tab.submitWish', {
+            url: '/home/promoDetails/:promoID/submitWish',
             views:{
-                '':{
-                    templateUrl: 'templates/promo-submit-wish.html',
+                'tab-home':{
+                    templateUrl: 'templates/home-submit-wish.html',
+                    prefetchTemplate: false,
                     controller: 'promotionCtrl'
                 }
             }
@@ -130,49 +133,87 @@ angular.module('yiave.routes', [])
 
 
         //------------------------------Chat--------------------------------------
-        .state('chatMessage',{
-            url: '/chatMessage/:messageId',
-            templateUrl: 'templates/chat-message.html',
-            controller: "messageCtrl"
+        .state('tab.chatMessage',{
+            url: '/chat/message/:messageId',
+            views:{
+                'tab-chat':{
+                    templateUrl: 'templates/chat-message.html',
+                    prefetchTemplate: false,
+                    controller: "messageCtrl"
+                }
+            }
+            
                           
         })
 
         //-------------------------------Notice---------------------------------------
-        .state('notice', {
-            url: '/notice',
-            templateUrl: 'templates/notice.html'
+        .state('tab.notice', {
+            url: '/me/notice',
+            views:{
+                'tab-me':{
+                    prefetchTemplate: false,
+                    templateUrl: 'templates/me-notice.html'
+                }
+            }  
             
         })
 
-        .state('noticeList1', {
-            url: '/noticeList1',
-            templateUrl: 'templates/notice-list1.html'   
+        .state('tab.noticeList1', {
+            url: '/me/notice/noticeList1',
+            views:{
+                'tab-me':{
+                    prefetchTemplate: false,
+                    templateUrl: 'templates/me-notice-list1.html' 
+                }
+            } 
+              
             
         })
 
-        .state('noticeList2', {
-            url: '/noticeList2',
-            templateUrl: 'templates/notice-list2.html'   
+        .state('tab.noticeList2', {
+            url: '/me/notice/noticeList2',
+            views:{
+                'tab-me':{
+                    prefetchTemplate: false,
+                    templateUrl: 'templates/me-notice-list2.html' 
+                }
+            }  
                
         })
 
-        .state('noticeList3', {
-            url: '/noticeList3',
-            templateUrl: 'templates/notice-list3.html'
+        .state('tab.noticeList3', {
+            url: '/me/notice/noticeList3',
+            views:{
+                'tab-me':{
+                    prefetchTemplate: false,
+                    templateUrl: 'templates/me-notice-list3.html' 
+                }
+            } 
                
         })
 
-        .state('noticeDetails', {
-            url: '/noticeDetails',
-            templateUrl: 'templates/notice-details.html'
+        .state('tab.noticeDetails', {
+            url: '/me/notice/noticeList/noticeDetails',
+            views:{
+                'tab-me':{
+                    prefetchTemplate: false,
+                    templateUrl: 'templates/me-notice-details.html'
+                }
+            } 
            
         })
 
         //--------------------------------User--------------------------------------
-        .state('userInfo', {
-            url: '/userInfo',
-            templateUrl: 'templates/user-info.html',
-            controller: 'userCtrl'
+        .state('tab.userInfo', {
+            url: '/me/info',
+            views:{
+                'tab-me':{
+                    templateUrl: 'templates/me-info.html',
+                    prefetchTemplate: false,
+                    controller: 'userCtrl'
+                }
+            } 
+            
             // resolve: {
             //     getUser: function () {
             //          /* body... */ 
@@ -199,72 +240,115 @@ angular.module('yiave.routes', [])
             
         })
         
-        .state('userFocus', {
-            url: '/userFocus',
-            templateUrl: 'templates/user-focus.html'
+        .state('tab.userFocus', {
+            url: '/me/focus',
+            views:{
+                'tab-me':{
+                    prefetchTemplate: false,
+                    templateUrl: 'templates/me-focus.html'
+                }
+            }    
+        })
+
+        .state('tab.userComments', {
+            url: '/me/comments',
+            views:{
+                'tab-me':{
+                    prefetchTemplate: false,
+                    templateUrl: 'templates/me-comments.html'
+                }
+            }           
+        })
+
+        .state('tab.userRecommend', {
+            url: '/me/recommend',
+            views:{
+                'tab-me':{
+                    prefetchTemplate: false,
+                    templateUrl: 'templates/me-recommend.html'
+                }
+            } 
+            
                
         })
 
-        .state('userComments', {
-            url: '/userComments',
-            templateUrl: 'templates/user-comments.html'
-               
+        .state('tab.businessInfo', {
+            url: '/me/businessInfo',
+            views:{
+                'tab-me':{
+                    prefetchTemplate: false,
+                    templateUrl: 'templates/me-business-info.html'
+                }
+            }       
         })
 
-        .state('userRecommend', {
-            url: '/userRecommend',
-            templateUrl: 'templates/user-recommend.html'
-               
-        })
+        .state('tab.aboutUs', {
 
-        .state('businessInfo', {
-            url: '/businessInfo',
-            templateUrl: 'templates/business-info.html'
-               
-        })
-
-        .state('aboutUs', {
-            url: '/aboutUs',
-            templateUrl: 'templates/about-us.html'
-               
+            url: '/me/aboutUs',
+            views:{
+                'tab-me':{
+                    prefetchTemplate: false,
+                    templateUrl: 'templates/me-about-us.html'
+                }
+            }   
         })
 
         //--------------------------------Login and register---------------------------------
-        .state('login',{
-            url: '/login',
-            templateUrl: 'templates/login.html'
+        .state('tab.login',{
+            url: '/me/login',
+            views:{
+                'tab-me':{
+                    prefetchTemplate: false,
+                    templateUrl: 'templates/me-login.html'
+                }
+            } 
+            
                           
         })
 
-        .state('register',{
-            url: '/register',
-            //templateUrl: 'templates/phone-register-step1.html'
-            templateUrl: 'templates/register.html',
-            controller: "registerCtrl"
+        .state('tab.register',{
+            url: '/me/register',
+            views:{
+                'tab-me':{
+                    templateUrl: 'templates/me-register.html',
+                    prefetchTemplate: false,
+                    controller: "registerCtrl"
+                }
+            } 
+            
                           
         })
 
         .state('registerStep2',{
             url: '/register',
             templateUrl: 'templates/phone-register-step2.html',
+            prefetchTemplate: false,
             controller: "registerCtrl"                
         })
 
         .state('registerStep3',{
             url: '/register',
             templateUrl: 'templates/phone-register-step3.html',
+            prefetchTemplate: false,
             controller: "registerCtrl"              
         })
 
-        .state('mailRegister',{
+        .state('tab.mailRegister',{
             url: '/register',
-            templateUrl: 'templates/mail-register.html',
+            views:{
+                'tab-me':{
+                    templateUrl: 'templates/mail-register.html',
+                    prefetchTemplate: false
+                }
+            } 
+            
             //controller: "registerCtrl"              
         })
 
         .state('waitToConfirm',{
             url: '/waitToConfirm',
             templateUrl: 'templates/wait-to-confirm.html',
+            prefetchTemplate: false,
             controller: "registerCtrl"              
         })
 

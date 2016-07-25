@@ -1,12 +1,9 @@
-<ion-view>
-	<ion-nav-title ng-bind="message.name"></ion-nav-title>
+<ion-view hide-tabs=true>
+	<ion-nav-title>{{message.name}}</ion-nav-title>
 
-	<ion-nav-buttons side="left">
-		<button class="button button-icon icon ion-ios-arrow-back" ui-sref="tab.chat" style='padding-top: 5px;'>
-		</button>	
-
-	</ion-nav-buttons>
-
+	<!-- <ion-nav-buttons side="left">
+		<button class="button button-icon icon ion-ios-arrow-back" ui-sref="tab.chat" style='padding-top: 5px;'></button>
+	</ion-nav-buttons> -->
 
 	<ion-content class="rj-stable-content" delegate-handle="messageDetailsScroll" id="message-detail-content">
 		<ion-refresher pulling-text="..." on-refresh="doRefresh()" pulling-icon=""></ion-refresher>

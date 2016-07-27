@@ -406,7 +406,7 @@ angular.module('yiave.controllers', []).controller('chatCtrl', ['$scope', '$stat
         event.preventDefault();
         //if(data.stateName == "tab.promoDetails" && data.fromCache == false){
         if (data.fromCache == false) {
-            $scope.promotion = promotionService.getPromotionById("promotion_" + $stateParams.promoID);
+            $scope.promotion = promotionService.getPromotionById("promo_" + $stateParams.promoID);
             $scope.promotion.start_date = new Date($scope.promotion.start_time).toLocaleDateString();
             $scope.promotion.end_date = new Date($scope.promotion.end_time).toLocaleDateString();
             $scope.promotion.type = "clothing";

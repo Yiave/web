@@ -1,6 +1,4 @@
 /*
- *这是单独为hello mui准备的个性化css，可以覆盖标准mui的css定义；
- * 在实际项目开发时，建议为App单独写一个css文件，从而实现项目的自定义皮肤功能；
  * 
  * */
 .third-login-image {
@@ -13,24 +11,34 @@
 .row .text{
 	text-align: right;
 }
+/*tab-home页面promotion list*/
+.promo-info{
+
+    font-size: 15px;
+    color: #ff464e;
+    width: 72%;
+    display: inline-block;
+}
+
 
  body{
  	background: #f4f4f4;
  	font-size: 14px;
+ 	font-family: PingFang-SC-Regular,"Helvetica Neue",Helvetica,"Droid Sans Fallback","microsoft yahei",sans-serif;
  }
  input, select, textarea{
  	font-size: 14px;
  }
- li{
- 	list-style: none;
- }
+ li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
  p{
  	font-size: 14px;
  	color: #000;
  }
  .clear {
  	clear:both; 
- 	height:0; 
  	overflow:hidden;
  }
 .clearfix:after {

@@ -1,30 +1,4 @@
 <ion-view view-title="衣街">
-
-	<ion-nav-buttons side="right">
-		<!-- <header class="mui-bar mui-bar-nav">
-			<a class="mui-icon mui-pull-left" style="
-			margin-top: -5px;"><span>长沙<i class="mui-icon mui-icon-arrowdown"></i></span></a>
-			
-			<div class="mui-title">
-				<input type="text" placeholder="搜索商铺" />
-			</div>
-			
-		</header> -->
-		<!-- <label class="item item-input">
-				<i class="icon ion-ios-search placeholder-icon"></i>
-				<input type="text" placeholder="搜索商铺">
-		</label> -->
-
-		<span style="margin-top: 7px;">长沙 <i class="icon ion-chevron-down"></i></span>
-		<!-- <input type="text" placeholder="搜索商铺" width="70%"/> -->
-
-			<!-- 
-					
-			<div class="button button-icon icon ion-ios-bell" ui-sref="tab.notice"></div> -->
-
-	</ion-nav-buttons>
-
-	
 	<ion-content>
 			<!--End-slider-->
 			<ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
@@ -40,34 +14,32 @@
 					</ul>
 				</div>
 			</div>		
-
-			<ion-list class="mui-table-view store-list" >
-				<ion-item ng-repeat="promo in promotions" ng-click="promoDetails(promo.id)">
-
-					<!-- <p class="img-left"><img src="images/logo_nike.jpg" alt="" /></p>
-					<div class="caption">
-						<h4>Nike</h4>
-						<p><span>折</span>{{promo.title}}</p>
-						<p>{{promo.description}}</p>
-					
-					</div>
-					<p class="text-address">地址：黄兴南路步行商业街1F<span>< 100米</span></p>
-					 -->
-					<div class="item-avatar">
-						<img src="images/logo_nike.jpg">
-						<h2>耐克篮球鞋专场</h2>
-						<p>2016-07-02 14:28:45</p>
+			
+			<ion-list class="store-list" >
+				<ion-item ng-repeat="promo in promotions">
+					<div class="item-avatar" style="min-height:40px;">
+						<img src="images/logo_uniqlo.jpg">
+						<span>优衣库夏季裙装专场</span>
+						<p style="font-size: 12px;color: #bbb;">2016-07-02 14:28:45</p>
 					</div>
 
 					<div class="item-body">
-						<img class="full-image" src="images/p4.jpg">
-						<p><span>折</span>{{promo.title}}</p>
-						<p>{{promo.description}}</p>
-						<p class="text-address">地址：黄兴南路步行商业街1F</p>
-					</div>
-					
+						<img class="full-image" src="images/578ee59f151ad1827b8b4582_800x800.jpg">
+						
+						<p style=" font-size: 15px;color: #ff464e;width:70%;">
+							全场裙装满2件8折，满3件7折</span>	
+						</p>
+						<button class="button button-small button-assertive icon-right ion-chevron-right" style="float: right;" ng-click="promoDetails(promo.id)">去约买</button>
+						
+						<!--{{promo.title}} -->
+						<!-- <p>{{promo.description}}</p> -->
+						<p>促销时间：2016-07-03 至 2016-07-31</p>
+						<p class="text-address">地址：黄兴南路步行商业街1F优衣库</p>
+					</div>		
 				</ion-item>
 			</ion-list>
+
+
 
 			<ion-infinite-scroll   
 				ng-if="morePromoCanBeLoaded()"

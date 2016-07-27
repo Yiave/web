@@ -14,10 +14,10 @@ angular.module('ionic-toast.provider', [])
       angular.extend(defaultConfig, inputObj);
     };
 
+
     this.$get = ['$compile', '$document', '$interval', '$rootScope', '$templateCache', '$timeout',
       function ($compile, $document, $interval, $rootScope, $templateCache, $timeout) {
 
-        //console.log(defaultConfig);
         var provider = {};
         var $scope = $rootScope.$new();
         var toastTimer = defaultConfig.timeOut;
@@ -54,12 +54,10 @@ angular.module('ionic-toast.provider', [])
 
         $scope.hideToast = function () {
           toggleDisplayOfToast('none', 0, function () {
-            //console.log('toast hidden');
           });
         };
 
         provider.show = function (message, position, isSticky, duration) {
-          //console.log(message, position, isSticky, duration, defaultConfig);
 
           if (!message) return;
           position = position || defaultConfig.position;

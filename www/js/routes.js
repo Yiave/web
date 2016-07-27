@@ -107,7 +107,7 @@ angular.module('yiave.routes', [])
         
         //----------------------------Promotion-------------------------------
         .state('tab.promoDetails',{
-            url: '/home/promoDetails/:promoID',
+            url: '/home/promotion/:promoID',
             views:{
                 'tab-home':{
                     templateUrl: 'templates/home-promo-details.html',  
@@ -120,7 +120,7 @@ angular.module('yiave.routes', [])
         })
 
         .state('tab.submitWish', {
-            url: '/home/promoDetails/:promoID/submitWish',
+            url: '/home/promotion/:promoID/submitWish',
             views:{
                 'tab-home':{
                     templateUrl: 'templates/home-submit-wish.html',
@@ -130,6 +130,18 @@ angular.module('yiave.routes', [])
             }
             
         })
+
+        // .state('tab.sysMatchRecom', {
+        //     url: '/home/promotion/:promoID/sysMatchRecom',
+        //     views:{
+        //         'tab-home':{
+        //             templateUrl: 'templates/home-sysmatch-recommend.html',
+        //             prefetchTemplate: false,
+        //             controller: 'promotionCtrl'
+        //         }
+        //     }
+            
+        // })
 
 
         //------------------------------Chat--------------------------------------

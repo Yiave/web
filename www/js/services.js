@@ -222,40 +222,12 @@ angular.module('yiave.services',[])
         //var promotions;
 
         return {
-            // init: function(promotions) {
-
-            //     $http.get("http://api.yiave.com/v1/promotions")
-            //     .then(function (response) {
-            //         localStorageService.update("promotions", response.data);
-
-            //         console.log('');
-            //     },function (response) {
-            //        /* body... */ 
-            //        console.log('');
-            //    });
-                /*
-[{
-    "business_id": 1,
-    "description": "\u4ec5\u5269\u4e09\u5929",
-    "end_time": "Tue, 07 Jun 2016 12:00:00 GMT",
-    "id": 1,
-    "image": "www.image.com",
-    "promotion_count": null,
-    "start_time": "Fri, 03 Jun 2016 12:00:00 GMT",
-    "title": "\u590f\u88c5\u5168\u573a\u4e00\u6298",
-    "type": null
-}]
-                */
-
-                /*var i = 0;
-                var length;
-                if(promotions){
-                    length = promotions.length;
-                    for(; i < length; i++){
-                        localStorageService.update(promotions[i].id, promotions[i]);
-                    }
-                }*/  
-            //},
+            updatePromoList: function (promoList) {
+                return localStorageService.update("promotions", promoList);
+            },
+            updatePromoDetails: function (promo) {
+                return localStorageService.update("promo_" + promo.id, promo);
+            },
 
             getAllPromotions: function () {
                 return localStorageService.get('promotions');
@@ -273,76 +245,18 @@ angular.module('yiave.services',[])
 .factory('userService', ['$cookies','$rootScope','$http','localStorageService', 
     function($cookies, $rootScope, $http, localStorageService){
 
-        //var loginUser = new Object();
-
         return {
-            init: function () {
-                //var userid = $cookies.get('userid');
-                
-                /*
-                    {
-                        "avater_url": null, 
-                        "email": "xuhuan@live.cn", 
-                        "id": 1, 
-                        "is_confirmed": false, 
-                        "is_locked": false, 
-                        "last_signin_date": "2016-06-03 20:07:52", 
-                        "nickname": null, 
-                        "realname": null, 
-                        "signup_date": "2016-05-26 23:51:58", 
-                        "telephone": "13808450755", 
-                        "username": "xuhuan"
-                    }
-                */
-                $http.get("http://api.yiave.com/v1/customers/"+$rootScope.userid)
-                .then(
-                    function (response) {
-                    //loginUser = response.data;
-                    //localStorageService.update('loginUser', response.data);
-                        var user = response.data;
-                        localStorageService.update('user_'+'id', user.id);
-                        localStorageService.update('user_'+'username', user.username);
-                        localStorageService.update('user_'+'nickname', user.nickname);
-                        localStorageService.update('user_'+'realname', user.realname);
-                        localStorageService.update('user_'+'sex', user.sex);
-                        localStorageService.update('user_'+'birthday', user.birthday);
-                        localStorageService.update('user_'+'email', user.email);
-                        localStorageService.update('user_'+'telephone', user.telephone);
-
-
-                }, function (response){
-                    console.log(response.status);
-
-                })
-                
-
-            },
 
             removeUser: function () {
-                localStorageService.clear('user_'+'id');
-                localStorageService.clear('user_'+'username');
-                localStorageService.clear('user_'+'nickname');
-                localStorageService.clear('user_'+'realname');
-                localStorageService.clear('user_'+'sex');
-                localStorageService.clear('user_'+'birthday');
-                localStorageService.clear('user_'+'email');
-                localStorageService.clear('user_'+'telephone');
+                localStorageService.clear('login_user');
             },
 
             getUser: function () {
-                return {
-                        'id' : localStorageService.get('user_'+'id'),
-                        'username' : localStorageService.get('user_'+'username'),
-                        'nickname' : localStorageService.get('user_'+'nickname'),
-                        'realname' : localStorageService.get('user_'+'realname'),
-                        'sex' : localStorageService.get('user_'+'sex'),
-                        'birthday' : localStorageService.get('user_'+'birthday'),
-                        'email' : localStorageService.get('user_'+'email'),
-                        'telephone' : localStorageService.get('user_'+'telephone')
-                }
+                return localStorageService.get('login_user');
             },
-            update: function (key, value) {
-                localStorageService.update('user_'+key, value);
+
+            updateUser: function (user) {
+                localStorageService.update('login_user', user);
             }
         }
 }])

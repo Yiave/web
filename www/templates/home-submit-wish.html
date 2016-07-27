@@ -19,12 +19,12 @@
 			<div class="item item-input" ng-show="wish.matchType != 1">
 				<span class="input-label">开始时间</span>
     			<input type="text" placeholder= "点击选择时间" ng-click="openStartDP()"  
-    			ng-model="wish.startDatetime" required>
+    			ng-model="wish.startDatetime" >
 			</div>
 			<div class="item item-input" ng-show="wish.matchType != 1">
 				<span class="input-label">结束时间</span>
     			<input type="text" placeholder= "点击选择时间" ng-click="openEndDP()"
-    			ng-model="wish.endDatetime" required>
+    			ng-model="wish.endDatetime" >
 			</div>
 			
 			
@@ -66,58 +66,81 @@
 
 <script id="templates/sysmatch-recommend-modal.html" type="text/ng-template">
 	<ion-modal-view>
-		<ion-header-bar class="bar bar-header bar-assertive">
 
+		<div class="bar bar-header has-tabs-top bar-assertive">
 			<button class="button button-clear button-primary" ng-click="recommendModal.hide()">取消</button>
 			<h1 class="title">系统推荐匹配</h1>
-			
-		</ion-header-bar>
-		<ion-content>
-			<ion-tabs tabs-top class="tabs-positive">
-				<ion-tab title="意愿" href="tab-link">
-					<ion-list class="card">
-						<ion-item class="item-avatar" ng-repeat="item in recomList.wishs" href="#">			
-							<div class="item-avatar">
-								<img src="mcfly.jpg">
-								<h2>发起人：Marty McFly</h2>
-								<p>2016-07-12</p>
-							</div>
-							<div class="item-body">		
-								<p>
-									<span class="input-label">已凑单件数: {{item.promotion_count}}</span>
-									<span class="input-label">约定时间: {{item.min_time}}-{{item.max_time}}</span>
-								</p>
-								<p>
-									<a href="choseMatch('wish', item.id)" class="subdued">参与</a>
+		</div>
+		<div class="tabs-striped tabs-top tabs-background-positive tabs-color-light">
+			<div class="tabs">
+				<a class="tab-item active" href="#">
+					<i class="icon ion-home"></i>
+					Test
+				</a>
+				<a class="tab-item" href="#">
+					<i class="icon ion-star"></i>
+					Favorites
+				</a>
+				<a class="tab-item" href="#">
+					<i class="icon ion-gear-a"></i>
+					Settings
+				</a>
+			</div>
+		</div>
+		
+		<!-- <div class="tabs-striped tabs-top tabs-color-assertive">
+			<div class="tabs">
+				<a class="tab-item" href="#">心愿</a>
+				<a class="tab-item" href="#">约买</a>
+			</div>
+		</div> -->
 
-								</p>
-							</div>
-						</ion-item>
-					</ion-list>
-					
-				</ion-tab>
-				<ion-tab title="约买" href="tab-link">
-					<ion-list>
-						<ion-item ng-repeat="item in recomList.cubuys" href="choseMatch('cobuy', item.id)">
-							<div class="item-avatar">
-								<img src="mcfly.jpg">
-								<h2>发起人：Marty McFly</h2>
-								<p>2016-07-12</p>
-							</div>
-							<div class="item-body">		
-								<p>
-									<span class="input-label">已凑单件数: {{item.promotion_count}}</span>
-									<span class="input-label">约定时间: {{item.min_time}}-{{item.max_time}}</span>
-								</p>
-								<p>
-									<a href="choseMatch('cobuy', item.id)" class="subdued">参与</a>
+		<ion-content has-subheader="false" style="top:80px;">
+			<div class="list card" id="recom_wish_list">
+				<div class="item" ng-repeat="item in recomList.wishs">			
+					<div class="item-avatar">
+						<img src="images/user.jpg">
+						<h2>发起人：user{{item.customer_id}}</h2>
+						<p>2016-07-12</p>
+					</div>
+					<div class="item-body">		
+						<p>
+							<span class="input-label">已凑单件数: {{item.wish_count}}</span>
+							<span class="input-label">约定时间:</span> 
+							<span>{{item.wish_time_start}} -- {{item.wish_time_end}}</span>
+						</p>
+						<p>						
+							<button class="button button-small button-outline button-assertive icon-right ion-chevron-right" style="float: right;"
+							ng-click="choseMatch('wish', item.id)">参与</button>
 
-								</p>
-							</div>
-						</ion-item>
-					</ion-list>
-				</ion-tab>
-			</ion-tabs>
+						</p>
+					</div>
+				</div> 
+			</div>	
+
+			<div class="list card" id="recom_cobuy_list">
+				<div class="item" ng-repeat="item in recomList.cubuys">
+					<div class="item-avatar">
+						<img src="mcfly.jpg">
+						<h2>发起人：Marty McFly</h2>
+						<p>2016-07-12</p>
+					</div>
+					<div class="item-body">		
+						<p>
+							<span class="input-label">已凑单件数: {{item.wish_count}}</span>
+							<span class="input-label">约定时间: </span>
+							<span>{{item.wish_time_start}} -- {{item.wish_time_end}}</span>
+						</p>
+						<p>
+							<button class="button button-small button-outline button-assertive icon-right ion-chevron-right" style="float: right;"
+							ng-click="choseMatch('wish', item.id)">参与</button>
+
+						</p>
+					</div>
+				</div>
+			</div>
+		
 		</ion-content>
+
 	</ion-modal-view>
 </script>

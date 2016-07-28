@@ -217,8 +217,8 @@ angular.module('yiave.services',[])
         }
     ])
 
-.factory('promotionService', ['localStorageService', '$http', 
-    function(localStorageService, $http){
+.factory('promotionService', ['localStorageService', 
+    function(localStorageService){
         //var promotions;
 
         return {
@@ -242,8 +242,8 @@ angular.module('yiave.services',[])
 
 }])
 
-.factory('userService', ['$cookies','$rootScope','$http','localStorageService', 
-    function($cookies, $rootScope, $http, localStorageService){
+.factory('userService', ['localStorageService', 
+    function(localStorageService){
 
         return {
 
@@ -260,3 +260,18 @@ angular.module('yiave.services',[])
             }
         }
 }])
+
+.factory('sysMatchRecomService', function(){
+    var recomList = new Object();
+    return {
+        saveRecom: function (object) {
+            recomList = object;
+        },
+
+        getRecom: function () {
+            return recomList
+        }
+    };
+    
+
+})

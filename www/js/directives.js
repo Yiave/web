@@ -62,17 +62,23 @@ angular.module('yiave.directives', [])
             scope.$on('$ionicView.beforeEnter', function() {
 
                 scope.$watch(attributes.hideTabs, function(value){
-                    $rootScope.hideTabs = 'tabs-item-hide';
+                    
+                    //$rootScope.hideTabs = 'tabs-item-hide';
+                    
+                    $rootScope.hideTabs = value;
                 });
             });
 
             scope.$on('$ionicView.beforeLeave', function() {
                 scope.$watch(attributes.hideTabs, function(value){
-                    $rootScope.hideTabs = 'tabs-item-hide';
+                    
+                    //$rootScope.hideTabs = 'tabs-item-hide';
+                    
+                     $rootScope.hideTabs = value;
                 });
-                scope.$watch('$destroy',function(){
-                    $rootScope.hideTabs = false;
-                })
+                // scope.$watch('$destroy',function(){
+                //     $rootScope.hideTabs = false;
+                // })
 
             });
         }

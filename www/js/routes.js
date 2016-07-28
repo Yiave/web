@@ -58,7 +58,7 @@ angular.module('yiave.routes', [])
         .state("tab", {
             url: "/tab",
             abstract: true,
-            templateUrl: "templates/tabs.html",
+            templateUrl: "templates/tabs.html"
         })
         //tab.message状态被激活,会显示tab-message.html模板, 
         //tab.message状态是在tabs.html中的ui-sref中设置的. 
@@ -68,7 +68,7 @@ angular.module('yiave.routes', [])
             views: {
                 'tab-home': {
                     templateUrl: 'templates/tab-home.html',
-                    controller: "homeCtrl",
+                    controller: "homeCtrl as controller",
                     // resolve: {
                     //     getPromotions : function ($http) {
                             
@@ -88,7 +88,7 @@ angular.module('yiave.routes', [])
             views: {
                 'tab-chat': {
                     templateUrl: 'templates/tab-chat.html',
-                    controller: "chatCtrl"
+                    controller: "chatCtrl as controller"
                 
                 }
             }
@@ -99,7 +99,7 @@ angular.module('yiave.routes', [])
             views: {
                 'tab-me': {
                     templateUrl: 'templates/tab-me.html',
-                    controller: 'meCtrl'
+                    controller: 'meCtrl as controller'
                 }
             },
             
@@ -112,7 +112,7 @@ angular.module('yiave.routes', [])
                 'tab-home':{
                     templateUrl: 'templates/home-promo-details.html',  
                     prefetchTemplate: false,                 
-                    controller: 'promotionCtrl'
+                    controller: 'promoDetailsCtrl as controller'
 
                 }
             }
@@ -125,24 +125,46 @@ angular.module('yiave.routes', [])
                 'tab-home':{
                     templateUrl: 'templates/home-submit-wish.html',
                     prefetchTemplate: false,
-                    controller: 'promotionCtrl'
+                    controller: 'wishSubmitCtrl as controller'
                 }
             }
             
         })
 
-        // .state('tab.sysMatchRecom', {
-        //     url: '/home/promotion/:promoID/sysMatchRecom',
-        //     views:{
-        //         'tab-home':{
-        //             templateUrl: 'templates/home-sysmatch-recommend.html',
-        //             prefetchTemplate: false,
-        //             controller: 'promotionCtrl'
-        //         }
-        //     }
+        .state('tab.sysMatchRecom', {
+            url: '/home/promotion/sysMatch',
+            views:{
+                'tab-home':{
+                    templateUrl: 'templates/home-sysmatch-recommend.html',
+                    abstract: true,
+                    prefetchTemplate: false
+                }
+            }
             
-        // })
+        })
 
+        .state('tab.sysMatchRecom.sysMatchWish', {
+            url: '/wishRecom',
+            views:{
+                'sysMatch-wish':{
+                    templateUrl: 'templates/home-sysmatch-wish.html',
+                    prefetchTemplate: false,
+                    controller: 'wishRecomCtrl as controller'
+                }
+            }
+            
+        })
+        .state('tab.sysMatchRecom.sysMatchCobuy', {
+            url: '/cobuyRecom',
+            views:{
+                'sysMatch-cobuy':{
+                    templateUrl: 'templates/home-sysmatch-cobuy.html',
+                    prefetchTemplate: false,
+                    controller: 'cobuyRecomCtrl as controller'
+                }
+            }
+            
+        })
 
         //------------------------------Chat--------------------------------------
         .state('tab.chatMessage',{

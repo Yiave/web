@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('yiave', ['ionic', 'yiave.controllers', 'yiave.routes', 'yiave.directives',
+angular.module('yiave', ['ionic', 'yiave.controllers-home-tab','yiave.controllers-chat-tab','yiave.controllers-me-tab', 'yiave.routes', 'yiave.directives',
  'yiave.services', 'ngCookies','ngCordova', 'ionic-datepicker', 'ionic-timepicker', 'ionic-toast'
  //'monospaced.elastic'
  ])
@@ -12,7 +12,11 @@ angular.module('yiave', ['ionic', 'yiave.controllers', 'yiave.routes', 'yiave.di
 .config(['$ionicConfigProvider', '$httpProvider', 'ionicDatePickerProvider', 'ionicTimePickerProvider',
     function($ionicConfigProvider, $httpProvider, ionicDatePickerProvider, ionicTimePickerProvider) {
 
+    //设置默认tabs位置
     $ionicConfigProvider.tabs.position('bottom'); // other values: top
+
+    //设置返回键icon及删除text
+    $ionicConfigProvider.backButton.text('').icon('ion-android-arrow-back').previousTitleText(false);
 
     //$httpProvider.defaults.headers.get = {"X-Authorization": "api_key"};
 
@@ -117,6 +121,4 @@ angular.module('yiave', ['ionic', 'yiave.controllers', 'yiave.routes', 'yiave.di
             messageService.init(response.data.messages);
 
         });
-
-
 });

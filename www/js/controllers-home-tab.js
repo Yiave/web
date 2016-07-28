@@ -1,12 +1,22 @@
 //miliseconds to date
 //时间格式：2016/7/17 -> 2016-07-17
-function DateValueToString(val) {
-	var LDStr = new Date(val).toLocaleDateString();
-    //.replaceAll('/', '-');
-    var yearStr = LDStr.split('/')[0];
-    var monStr = LDStr.split('/')[1];
-    var dayStr = LDStr.split('/')[2];
-    var str = yearStr + '-' + (Number(monStr) < 10 ? ('0' + monStr) : monStr) + '-' + +(Number(dayStr) < 10 ? ('0' + dayStr) : dayStr);
+// function DateValueToString(val) {
+// 	var LDStr = new Date(val).toLocaleDateString();
+//     //.replaceAll('/', '-');
+//     var yearStr = LDStr.split('/')[0];
+//     var monStr = LDStr.split('/')[1];
+//     var dayStr = LDStr.split('/')[2];
+
+//     var str = yearStr + '-' + (Number(monStr) < 10 ? ('0' + monStr) : monStr) + '-' + +(Number(dayStr) < 10 ? ('0' + dayStr) : dayStr);
+//     return str;
+// }
+
+function DateToStr (date) {
+    var yearStr = date.getFullYear();
+    var monStr = date.getMonth() + 1;
+    var dayStr = date.getDay();
+
+    var str = yearStr + '-' + (Number(monStr) < 10 ? ('0' + monStr) : monStr) + '-' +(Number(dayStr) < 10 ? ('0' + dayStr) : dayStr);
     return str;
 }
 //string to date  
@@ -45,11 +55,11 @@ angular.module('yiave.controllers-home-tab', [])
 				return;
 			}
 			for (var i = 0; i < promotions.length; i++) {
-				promotions[i].start_time = new Date(promotions[i].start_time).toLocaleDateString();
-				promotions[i].end_time = new Date(promotions[i].end_time).toLocaleDateString();
+				promotions[i].start_time = DateToStr(new Date(promotions[i].start_time));
+				promotions[i].end_time = DateToStr(new Date(promotions[i].end_time));
 
-            //promotions[i].publish_date = new Date(promotions[i].publish_date).toLocaleDateString();
-            promotions[i].publish_date = new Date(2016, 7, 1).toLocaleDateString();
+            //promotions[i].publish_date = DateToStr(new Date(promotions[i].publish_date));
+            promotions[i].publish_date = DateToStr(new Date(2016, 7, 1));
 
             var type = promotions[i].type;
             if(type == 0){
@@ -136,8 +146,8 @@ $scope.morePromoCanBeLoaded = function() {
             //设定倒计时
             $scope.intervalID = window.setInterval(function(){ShowCountDown(new Date($scope.promotion.end_time),'countdown');}, 1000);
 
-            $scope.promotion.start_time = new Date($scope.promotion.start_time).toLocaleDateString();
-            $scope.promotion.end_time = new Date($scope.promotion.end_time).toLocaleDateString();
+            $scope.promotion.start_time = DateToStr(new Date($scope.promotion.start_time));
+            $scope.promotion.end_time = DateToStr(new Date($scope.promotion.end_time));
         //}
 
     });
@@ -204,7 +214,7 @@ $scope.morePromoCanBeLoaded = function() {
     $scope.openStartDP = function() {
             var startDP = {
                 callback: function(val) {
-                    var startDate = DateValueToString(val);
+                    var startDate = DateToStr(new Date(val));
                     var startTP = {
                         callback: function(val) {
                         //8h 时差
@@ -228,7 +238,7 @@ $scope.morePromoCanBeLoaded = function() {
     $scope.openEndDP = function() {
         var endDP = {
             callback: function(val) {
-                var endDate = DateValueToString(val);
+                var endDate = DateToStr(new Date(val));
                 var endTP = {
                     callback: function(val) {
                         var endTime = new Date((val + 3600 * 16) * 1000).toTimeString().substr(0, 8);

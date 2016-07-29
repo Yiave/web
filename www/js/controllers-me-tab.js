@@ -78,7 +78,7 @@ angular.module('yiave.controllers-me-tab', [])
         // }
         //弹出框显示“加载中”，或是登录按钮为disable，显示“登录中”
         $ionicLoading.show();
-        $http.post("http://api.yiave.com/v1/customers/authenticate", params = params).then(function(response) {
+        $http.post(apiHeader + "customers/authenticate", params = params).then(function(response) {
         	$cookies.put("userid", response.data.id);
         	$rootScope.hasLogin = true;
         	$rootScope.userid = response.data.id;
@@ -98,7 +98,7 @@ angular.module('yiave.controllers-me-tab', [])
                         "username": "xuhuan"
                     }
                     */
-                    $http.get("http://api.yiave.com/v1/customers/" + response.data.id)
+                    $http.get(apiHeader + "customers/" + response.data.id)
                     .then(function (response) {       
                     	userService.updateUser(response.data);
                     	$state.go("tab.me");
@@ -154,13 +154,13 @@ angular.module('yiave.controllers-me-tab', [])
         //     return;
         // }
         //检测username是否重复
-        $http.get("http://api.yiave.com/v1/customers/" + user.username).then(function(response) {
+        $http.get(apiHeader + "customers/" + user.username).then(function(response) {
             //username已存在
             ionicToast.show('用户名已存在', 'top', false, 2000);
             return;
         }, function(response) {}).catch(function(response) {}).finally(function() {});
         //检测email是否重复
-        $http.get("http://api.yiave.com/v1/customers/" + user.email).then(function(response) {
+        $http.get(apiHeader + "customers/" + user.email).then(function(response) {
             //邮箱已存在
             ionicToast.show('邮箱已被注册', 'top', false, 2000);
             return;
@@ -173,7 +173,7 @@ angular.module('yiave.controllers-me-tab', [])
             return;
         }
         //开始http请求
-        $http.post("http://api.yiave.com/v1/customers", params = {
+        $http.post(apiHeader + "customers", params = {
         	username: user.username,
         	password: hex_md5(user.password),
         	email: user.email
@@ -266,7 +266,7 @@ angular.module('yiave.controllers-me-tab', [])
         //     return;
         // }
         $ionicLoading.show()
-        $http.put("http://api.yiave.com/v1/customers/" + $rootScope.userid, params = {
+        $http.put(apiHeader + "customers/" + $rootScope.userid, params = {
         	'nickname': nickname
         }).then(function(response) {
         	userService.updateUser(response.data);
@@ -294,7 +294,7 @@ angular.module('yiave.controllers-me-tab', [])
         //      return;
         // }
         $ionicLoading.show();
-        $http.put("http://api.yiave.com/v1/customers/" + $rootScope.userid + "/password", params = {
+        $http.put(apiHeader + "customers/" + $rootScope.userid + "/password", params = {
         	'old_password': hex_md5(currentPwd),
         	'password': hex_md5(pwd)
         }).then(function(response) {
@@ -320,7 +320,7 @@ angular.module('yiave.controllers-me-tab', [])
         //     return;
         // }
         $ionicLoading.show();
-        $http.put("http://api.yiave.com/v1/customers/" + $rootScope.userid, params = {
+        $http.put(apiHeader + "customers/" + $rootScope.userid, params = {
         	'realname': realname
         }).then(function(response) {
         	userService.updateUser(response.data);

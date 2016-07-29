@@ -24,6 +24,9 @@
     <!-- cordova script (this will be a 404 during development) -->
     <script src="lib/ngCordova/dist/ng-cordova.min.js"></script>
     <!-- your app's js -->
+    <!-- MemoryStorage 在localStorage不适用的safari private mode中代替localStorage -->
+    <script src="lib/memorystorage.min.js"></script>
+
     <script src="js/app.js"></script>
     <script src="js/controllers-home-tab.js"></script>
     <script src="js/controllers-chat-tab.js"></script>
@@ -32,6 +35,8 @@
     <script src="js/services.js"></script>
     <script src="js/directives.js"></script>
     <script src="js/countdown.js"></script>
+    
+
 </head>
 
 <body ng-app="yiave">

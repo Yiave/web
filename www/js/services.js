@@ -1,9 +1,31 @@
+//判断浏览器是否支持localStorage（主要针对safari private mode）
+
+function isLocalStorageNameSupported() {
+    var testKey = 'test', storage = window.localStorage;
+    try {
+        storage.setItem(testKey, '1');
+        storage.removeItem(testKey);
+        return true;
+    }catch (error) {
+        return false;
+    }
+}
+var storage = new Object();
+if(isLocalStorageNameSupported()){
+    storage = window.localStorage;
+}else{
+    storage = new MemoryStorage('yiave');
+}
+storage = new MemoryStorage('yiave');
+
 angular.module('yiave.services',[])
 
+
 .factory('localStorageService', [function() {
+
         return {
             get: function localStorageServiceGet(key, defaultValue) {
-                var stored = localStorage.getItem(key);
+                var stored = storage.getItem(key);
                 try {
                     stored = angular.fromJson(stored);
                 } catch (error) {
@@ -16,11 +38,11 @@ angular.module('yiave.services',[])
             },
             update: function localStorageServiceUpdate(key, value) {
                 if (value) {
-                    localStorage.setItem(key, angular.toJson(value));
+                    storage.setItem(key, angular.toJson(value));
                 }
             },
             clear: function localStorageServiceClear(key) {
-                localStorage.removeItem(key);
+                storage.removeItem(key);
             }
         };
     }])

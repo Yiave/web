@@ -15,7 +15,7 @@ function launchFullscreen(element) {
 }
 
 
-// Ionic Starter App
+// Ionic Starter AppW
 
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
@@ -68,7 +68,7 @@ angular.module('yiave', ['ionic', 'yiave.controllers-home-tab','yiave.controller
 
 //.constant('apiHeader', "http://api.yiave.com/v1/")
 
-.run(function($ionicPlatform, $http, messageService, dateService, $rootScope, $cookies, userService, promotionService){
+.run(function($ionicPlatform, $http, messageService, $rootScope, $cookies,userService){
 
     $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -88,6 +88,8 @@ angular.module('yiave', ['ionic', 'yiave.controllers-home-tab','yiave.controller
     }
   });
 
+
+    //app进入全屏
     launchFullscreen(document.documentElement);
 
     //平台url，暂时注释
@@ -96,19 +98,29 @@ angular.module('yiave', ['ionic', 'yiave.controllers-home-tab','yiave.controller
     //     url = "/android_asset/www/";
     // }
 
+    //获取cookie
     var userid = $cookies.get('userid');
-
     if(userid == undefined){
         $rootScope.hasLogin = false;
 
     }else{
         $rootScope.hasLogin = true;
         $rootScope.userid = userid;
+
+        //针对safari private browing mode，数据不能持久化到浏览器本地存储
+        $http.get(apiHeader + "customers/" + userid)
+        .then(function (response) {       
+          userService.updateUser(response.data);
+        }, function (response){
+          console.log(response.status);
+        })
+
+
     }
 
 
     $http.get(url + "data/json/messages.json").then(function(response) {
 
-            messageService.init(response.data.messages);
-        });
+      messageService.init(response.data.messages);
+    });
 });

@@ -1,20 +1,7 @@
-//miliseconds to date
-//时间格式：2016/7/17 -> 2016-07-17
-// function DateValueToString(val) {
-// 	var LDStr = new Date(val).toLocaleDateString();
-//     //.replaceAll('/', '-');
-//     var yearStr = LDStr.split('/')[0];
-//     var monStr = LDStr.split('/')[1];
-//     var dayStr = LDStr.split('/')[2];
-
-//     var str = yearStr + '-' + (Number(monStr) < 10 ? ('0' + monStr) : monStr) + '-' + +(Number(dayStr) < 10 ? ('0' + dayStr) : dayStr);
-//     return str;
-// }
-
 function DateToStr (date) {
     var yearStr = date.getFullYear();
     var monStr = date.getMonth() + 1;
-    var dayStr = date.getDay();
+    var dayStr = date.getDate();
 
     var str = yearStr + '-' + (Number(monStr) < 10 ? ('0' + monStr) : monStr) + '-' +(Number(dayStr) < 10 ? ('0' + dayStr) : dayStr);
     return str;
@@ -31,6 +18,29 @@ function StringToDate(str) {
 	var min = time.split(":")[1];
 	var sec = time.split(":")[2];
 	return new Date(year,month,day,hours,min,sec);
+
+}
+
+//处理promotions
+function processPromos (promotions) {
+    for (var i = 0; i < promotions.length; i++) {
+        promotions[i].start_time = DateToStr(new Date(promotions[i].start_time));
+        promotions[i].end_time = DateToStr(new Date(promotions[i].end_time));
+
+        //promotions[i].publish_date = DateToStr(new Date(promotions[i].publish_date));
+        promotions[i].publish_date = DateToStr(new Date(2016, 7, 1));
+
+        var type = promotions[i].type;
+        if(type == 0){
+            promotions[i].label = "满件折";
+        }else if (type == 1) {
+            promotions[i].label = "满件赠";
+        }else if(type == 2){
+            promotions[i].label = "满件减";
+        }else{}
+    }
+    return promotions;
+
 }
 
 angular.module('yiave.controllers-home-tab', [])
@@ -51,28 +61,14 @@ angular.module('yiave.controllers-home-tab', [])
 
             $scope.appLogo = '<img class="title-image" src="images/logo.png" />';
 
-			var promotions = promotionService.getAllPromotions();
-			if(promotions == null){
-				return;
-			}
-			for (var i = 0; i < promotions.length; i++) {
-				promotions[i].start_time = DateToStr(new Date(promotions[i].start_time));
-				promotions[i].end_time = DateToStr(new Date(promotions[i].end_time));
+            $scope.doRefresh();
 
-            //promotions[i].publish_date = DateToStr(new Date(promotions[i].publish_date));
-            promotions[i].publish_date = DateToStr(new Date(2016, 7, 1));
+            var promotions = promotionService.getAllPromotions();
+            if(promotions == null){
+                return;
+            }
 
-            var type = promotions[i].type;
-            if(type == 0){
-            	promotions[i].label = "满件折";
-            }else if (type == 1) {
-            	promotions[i].label = "满件赠";
-            }else if(type == 2){
-            	promotions[i].label = "满件减";
-            }else{}
-            
-        }
-        $scope.promotions = promotions;
+            $scope.promotions = processPromos(promotions);
         
     });
 
@@ -109,9 +105,9 @@ angular.module('yiave.controllers-home-tab', [])
         // }
         $http.get( apiHeader + 'promotions').then(function(response) {
         	promotionService.updatePromoList(response.data);
-            //$scope.promotions = response.data;
-            //$state.go("tab.home");
-            location.reload();
+            $scope.promotions = processPromos(response.data);
+            $state.go("tab.home");
+            //location.reload();
         }, function(response) {
         	ionicToast.show('获取数据失败', 'top', false, 2000);   
         }).catch(function(response) {

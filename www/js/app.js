@@ -1,3 +1,20 @@
+//全局变量
+var apiHeader = "http://api.yiave.com/v1/";
+
+//全屏显示
+function launchFullscreen(element) {
+  if(element.requestFullscreen) {
+    element.requestFullscreen();
+  } else if(element.mozRequestFullScreen) {
+    element.mozRequestFullScreen();
+  } else if(element.webkitRequestFullscreen) {
+    element.webkitRequestFullscreen();
+  } else if(element.msRequestFullscreen) {
+    element.msRequestFullscreen();
+  }
+}
+
+
 // Ionic Starter App
 
 // angular.module is a global place for creating, registering and retrieving Angular modules
@@ -18,9 +35,9 @@ angular.module('yiave', ['ionic', 'yiave.controllers-home-tab','yiave.controller
     //设置返回键icon及删除text
     $ionicConfigProvider.backButton.text('').icon('ion-android-arrow-back').previousTitleText(false);
 
-    //$httpProvider.defaults.headers.get = {"X-Authorization": "api_key"};
 
     $httpProvider.defaults.headers.common = {"Authorization": "api_key"};
+
 
     var datePickerObj = {
       //inputDate: new Date(),
@@ -49,6 +66,7 @@ angular.module('yiave', ['ionic', 'yiave.controllers-home-tab','yiave.controller
 
 }])
 
+//.constant('apiHeader', "http://api.yiave.com/v1/")
 
 .run(function($ionicPlatform, $http, messageService, dateService, $rootScope, $cookies, userService, promotionService){
 
@@ -70,45 +88,18 @@ angular.module('yiave', ['ionic', 'yiave.controllers-home-tab','yiave.controller
     }
   });
 
+    launchFullscreen(document.documentElement);
 
-
+    //平台url，暂时注释
     var url = "";
-    if (ionic.Platform.isAndroid()) {
-        url = "/android_asset/www/";
-    }
-
-    //get the userid from cookie
-    /*var userid = $cookies.get('userid');
-
-    if(userid == undefined){
-        $rootScope.hasLogin = false;
-        $rootScope.loginUser = {
-            "id": -1,
-            "nickname": '游客'
-        };
-    }else{
-        $rootScope.hasLogin = true;
-        $http.get("http://api.yiave.com/v1/customers/"+userid)
-        .success(function (data, status, headers, config) {
-            $rootScope.loginUser = data;
-            console.log('');
-        })
-        .error(function (data, status, headers, config){
-            console.log(status);
-
-        })
-
-
-    }*/
+    // if (ionic.Platform.isAndroid()) {
+    //     url = "/android_asset/www/";
+    // }
 
     var userid = $cookies.get('userid');
 
     if(userid == undefined){
         $rootScope.hasLogin = false;
-        /*$rootScope.loginUser = {
-            "id": -1,
-            "nickname": '游客'
-        };*/
 
     }else{
         $rootScope.hasLogin = true;
@@ -117,8 +108,7 @@ angular.module('yiave', ['ionic', 'yiave.controllers-home-tab','yiave.controller
 
 
     $http.get(url + "data/json/messages.json").then(function(response) {
-            // localStorageService.update("messages", response.data.messages);
-            messageService.init(response.data.messages);
 
+            messageService.init(response.data.messages);
         });
 });

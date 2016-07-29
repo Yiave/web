@@ -37,6 +37,7 @@ angular.module('yiave.controllers-home-tab', [])
 
 .controller('homeCtrl', ['$scope', '$http', '$state', 'promotionService', 'ionicToast', '$ionicHistory',
 	function($scope, $http, $state, promotionService, localStorageService, ionicToast, $ionicHistory) {
+
 		$(".flexslider").flexslider({
 			slideshowSpeed: 2000,
         //展示时间间隔ms
@@ -44,7 +45,7 @@ angular.module('yiave.controllers-home-tab', [])
         //滚动时间ms
         directionNav: true,
         touch: true//是否支持触屏滑动
-    });
+        });
 
 		$scope.$on("$ionicView.beforeEnter", function() {
 
@@ -85,7 +86,7 @@ angular.module('yiave.controllers-home-tab', [])
         // }
         
         //http获取promotion详细数据
-        $http.get("http://api.yiave.com/v1/promotions/" + promoID).then(function(response) {
+        $http.get(apiHeader + "promotions/" + promoID).then(function(response) {
         	promotionService.updatePromoDetails(response.data);
         	$state.go("tab.promoDetails", {
         		"promoID": promoID
@@ -106,7 +107,7 @@ angular.module('yiave.controllers-home-tab', [])
         //     ionicToast.show('网络连接不可用，请稍候重试', 'top', false, 2000);           
         //     return;   
         // }
-        $http.get('http://api.yiave.com/v1/promotions').then(function(response) {
+        $http.get( apiHeader + 'promotions').then(function(response) {
         	promotionService.updatePromoList(response.data);
             //$scope.promotions = response.data;
             //$state.go("tab.home");
@@ -421,7 +422,7 @@ $scope.morePromoCanBeLoaded = function() {
                 "wish_time_end": wish.endDatetime
             };
         }
-        var api = "http://api.yiave.com/v1/promotions/" + $scope.promotion.id + "/" + $scope.promotion.type + "/wishs/" + matchType;
+        var api = apiHeader + "promotions/" + $scope.promotion.id + "/" + $scope.promotion.type + "/wishs/" + matchType;
         $http.post(api, params = params).then(function(response) {
             
             if (wish.matchType == 0) {

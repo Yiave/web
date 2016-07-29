@@ -34,7 +34,7 @@ For example, you might change some of the default colors:
 }
 .ionic_timepicker_popup .heading {
   height: 44px;
-  background-color: #009688;
+  background-color: #ef473a;
   color: #ffffff;
   text-align: center;
   line-height: 44px;
@@ -60,6 +60,6 @@ For example, you might change some of the default colors:
   white-space: normal !important;
 }
 .ionic_timepicker_popup .button_set, .ionic_timepicker_popup .button_close {
-  background-color: #009688;
+  background-color: #ef473a;
   color: #ffffff;
 }

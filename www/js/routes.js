@@ -68,17 +68,8 @@ angular.module('yiave.routes', [])
             views: {
                 'tab-home': {
                     templateUrl: 'templates/tab-home.html',
-                    controller: "homeCtrl as controller",
-                    // resolve: {
-                    //     getPromotions : function ($http) {
-                            
-                    //         return $http({
-                    //             method: 'GET',
-                    //             url: 'http://api.yiave.com/v1/promotions'
-                                
-                    //       });
-                    //     }
-                    // }
+                    controller: "homeCtrl",
+                    controllerAs: 'controller'
                 }
             }
         })
@@ -246,32 +237,7 @@ angular.module('yiave.routes', [])
                     prefetchTemplate: false,
                     controller: 'userCtrl'
                 }
-            } 
-            
-            // resolve: {
-            //     getUser: function () {
-            //          /* body... */ 
-            //          return $http({
-            //             method: 'GET',
-            //             url: 'http://api.yiave.com/v1/customers/1'
-                        
-            //       });
-            //     },
-            //     person: function() {
-            //       return {
-            //         name: "Ari",
-            //         email: "ari@fullstack.io"
-            //         };
-            //     }
-            // },
-
-            // controller: function($scope,getUser,person){
-            //     $scope.person = person;
-            //     $scope.user = getUser.user;
-            //     //$scope.user = $rootScope.loginUser;
-
-            // }
-            
+            }   
         })
         
         .state('tab.userFocus', {

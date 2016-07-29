@@ -16,7 +16,6 @@ if(isLocalStorageNameSupported()){
 }else{
     storage = new MemoryStorage('yiave');
 }
-storage = new MemoryStorage('yiave');
 
 angular.module('yiave.services',[])
 

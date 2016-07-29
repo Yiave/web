@@ -1,0 +1,66 @@
+<ion-view view-title="加入约买" hide-tabs=true>
+	<ion-content has-subheader="false">
+		<form name="wishForm" ng-submit="submitWish(wish)" novalidate>
+			<ion-list>
+				<label class="item item-input item-select" >
+					<div class="input-label">
+						购买件数
+					</div>
+					<select ng-model="wish.clothCount" ng-options="value for value in clothCountOption">
+					</select>
+				</label>
+				<label class="item item-input item-select" ng-model="wish.matchType">
+					<div class="input-label">
+						匹配方式
+					</div>
+					<select ng-model="wish.matchType" ng-options="item.id as item.label for item in matchTypeOption">
+					</select>
+				</label>
+				<div class="item item-input" ng-show="wish.matchType != 1">
+					<span class="input-label">开始时间</span>
+					<input type="text" placeholder= "点击选择时间" ng-click="openStartDP()"  
+					ng-model="wish.startDatetime" required>
+				</div>
+				<div class="item item-input" ng-show="wish.matchType != 1">
+					<span class="input-label">结束时间</span>
+					<input type="text" placeholder= "点击选择时间" ng-click="openEndDP()"
+					ng-model="wish.endDatetime" required>
+				</div>
+
+
+				<div class="item item-input" ng-show="wish.matchType == 1">
+					<span class="input-label">约买ID</span>
+					<input type="text" ng-model="wish.cobuyID">
+				</div>
+				<button class="button button-block button-assertive" type="submit" 
+				ng-disabled="wishForm.$invalid">提交</button>
+			</ion-list>
+		</form>
+
+	</ion-content>
+</ion-view>
+
+<script id="templates/usermatch-cobuyinfo-modal.html" type="text/ng-template">
+	<ion-modal-view view>
+		<ion-content>
+			<h2 style="text-align:center;">{{cobuyModalTitle}}</h2>
+			<ion-list>
+				<ion-item>
+					<!-- promotion info -->
+								
+					<span class="input-label">地址：黄兴南路步行商业街1F优衣库</span>				
+					<span class="input-label">促销信息: {{promotion.description}}</span>
+					<span class="input-label">促销结束时间: {{cobuy.end_time}}</span>
+					
+					<!-- cobuy info -->
+					<span class="input-label">购买件数: {{cobuy.promotion_count}}</span>					
+					<span class="input-label">约定时间: {{cobuy.min_time}}-{{cobuy.max_time}}</span>		
+					<span class="input-label">匹配是否完成: <span ng-show="{{cobuy.is_match_completed == true}}">是</span>
+					<span ng-show="{{cobuy.is_match_completed == false}}">否</span></span>
+					
+				</ion-item>
+			</ion-list>
+			<button class="button button-block button-assertive" ng-click="pageToHome()">返回首页</button>
+		</ion-content>
+	</ion-modal-view>
+</script>

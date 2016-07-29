@@ -1,0 +1,64 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'c:\\Program Files\\nodejs\\node.exe',
+1 verbose cli   'c:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   '-g',
+1 verbose cli   'spy-debugger' ]
+2 info using npm@2.15.1
+3 info using node@v4.4.4
+4 verbose install initial load of C:\Users\YuKai\AppData\Roaming\npm\package.json
+5 verbose readDependencies loading dependencies from C:\Users\YuKai\AppData\Roaming\npm\package.json
+6 silly cache add args [ 'spy-debugger', null ]
+7 verbose cache add spec spy-debugger
+8 silly cache add parsed spec Result {
+8 silly cache add   raw: 'spy-debugger',
+8 silly cache add   scope: null,
+8 silly cache add   name: 'spy-debugger',
+8 silly cache add   rawSpec: '',
+8 silly cache add   spec: 'latest',
+8 silly cache add   type: 'tag' }
+9 silly addNamed spy-debugger@latest
+10 verbose addNamed "latest" is being treated as a dist-tag for spy-debugger
+11 info addNameTag [ 'spy-debugger', 'latest' ]
+12 silly mapToRegistry name spy-debugger
+13 silly mapToRegistry using default registry
+14 silly mapToRegistry registry https://registry.npmjs.org/
+15 silly mapToRegistry data Result {
+15 silly mapToRegistry   raw: 'spy-debugger',
+15 silly mapToRegistry   scope: null,
+15 silly mapToRegistry   name: 'spy-debugger',
+15 silly mapToRegistry   rawSpec: '',
+15 silly mapToRegistry   spec: 'latest',
+15 silly mapToRegistry   type: 'tag' }
+16 silly mapToRegistry uri https://registry.npmjs.org/spy-debugger
+17 verbose addNameTag registry:https://registry.npmjs.org/spy-debugger not in flight; fetching
+18 verbose request uri https://registry.npmjs.org/spy-debugger
+19 verbose request no auth needed
+20 info attempt registry request try #1 at 22:21:26
+21 verbose request id 35ee654e8c66b6b6
+22 http request GET https://registry.npmjs.org/spy-debugger
+23 info retry will retry, error on last attempt: Error: getaddrinfo ENOTFOUND registry.npmjs.org registry.npmjs.org:443
+24 info attempt registry request try #2 at 22:21:36
+25 http request GET https://registry.npmjs.org/spy-debugger
+26 info retry will retry, error on last attempt: Error: getaddrinfo ENOTFOUND registry.npmjs.org registry.npmjs.org:443
+27 info attempt registry request try #3 at 22:22:36
+28 http request GET https://registry.npmjs.org/spy-debugger
+29 verbose stack Error: getaddrinfo ENOTFOUND registry.npmjs.org registry.npmjs.org:443
+29 verbose stack     at errnoException (dns.js:27:10)
+29 verbose stack     at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:78:26)
+30 verbose cwd D:\yiave\ionicApp\YiaveWebApp
+31 error Windows_NT 10.0.10586
+32 error argv "c:\\Program Files\\nodejs\\node.exe" "c:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "-g" "spy-debugger"
+33 error node v4.4.4
+34 error npm  v2.15.1
+35 error code ENOTFOUND
+36 error errno ENOTFOUND
+37 error syscall getaddrinfo
+38 error network getaddrinfo ENOTFOUND registry.npmjs.org registry.npmjs.org:443
+38 error network This is most likely not a problem with npm itself
+38 error network and is related to network connectivity.
+38 error network In most cases you are behind a proxy or have bad network settings.
+38 error network
+38 error network If you are behind a proxy, please make sure that the
+38 error network 'proxy' config is set properly.  See: 'npm help config'
+39 verbose exit [ 1, true ]

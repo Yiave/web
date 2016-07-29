@@ -1,0 +1,54 @@
+<ion-view view-title="{{appLogo}}" hide-back-button="true" hide-tabs=false >
+	<ion-content>
+			<!--End-slider-->
+			<ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
+
+			<!--start-bannner-->	
+			<div class="banner">
+				<div class="flexslider">
+					<ul class="slides">
+						<li><img alt="banner" src="images/banner_1.jpg" /></li>
+						<li><img alt="banner" src="images/banner_2.jpg" /></li>
+						<li><img alt="banner" src="images/banner_3.jpg" /></li>
+						<li><img alt="banner" src="images/banner_4.jpg" /></li>
+					</ul>
+				</div>
+			</div>		
+			
+			<ion-list>
+				<ion-item ng-repeat="promo in promotions" class="list card">
+					<div class="item item-avatar" style="min-height:40px;">
+						<img src="images/logo_uniqlo.jpg" ng-show="$index==0">
+						<img src="images/logo_hm.jpg" class="item-image" ng-show="$index==1">
+						<img src="images/logo_semir.jpg" class="item-image" ng-show="$index==2">
+						<span>{{promo.title}}</span>
+						<button class="button button-small button-outline button-assertive icon-right ion-ios-heart-outline"
+						style="float: right;">收藏</button>
+						<p style="font-size: 12px;color: #bbb;">{{promo.publish_date}}</p>
+					</div>
+
+					<div class="item item-body">
+						<img class="full-image" src="{{promo.image}}">
+						
+						<p style=" font-size: 15px;color: #ff464e;">
+							<span class="brand-tag-{{promo.type}}">{{promo.label}}</span>{{promo.description}}
+						</p>
+						<button class="button button-small button-assertive icon-right ion-chevron-right" style="float: right;" ng-click="pageToPromoDetails(promo.id)">了解详情</button>
+						
+						<p>促销时间：{{promo.start_time}} 至 {{promo.end_time}}</p>
+						<p class="text-address">地址：黄兴南路步行商业街1F优衣库</p>
+					</div>		
+				</ion-item>
+			</ion-list>
+
+
+
+			<ion-infinite-scroll   
+				ng-if="morePromoCanBeLoaded()"
+  				icon="ion-loading-c"
+  				on-infinite="loadMorePromotions()" 
+  				distance="1%">
+  			</ion-infinite-scroll>
+		</ion-content>
+
+	</ion-view>

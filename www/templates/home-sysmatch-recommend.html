@@ -1,0 +1,90 @@
+<ion-view hide-tabs=true>
+	<div>
+		<div class="tabs-striped">
+			<ion-tabs class=" tabs-top tabs-icon-left tabs-background-light tabs-color-active-assertive">
+
+				<ion-tab title="心愿" icon-on="ion-android-favorite" icon-off="ion-android-favorite-outline" ui-sref="tab.sysMatchRecom.sysMatchWish">						
+					<ion-nav-view name="sysMatch-wish"></ion-nav-view>
+				</ion-tab>
+
+				<ion-tab title="约买" icon-on="ion-ios-people" icon-off="ion-ios-people-outline" ui-sref="tab.sysMatchRecom.sysMatchCobuy">					
+					<ion-nav-view name="sysMatch-cobuy"></ion-nav-view>			
+				</ion-tab>
+
+			</ion-tabs>
+		</div>
+	</div>
+</ion-view>
+
+<script id="templates/home-sysmatch-wish.html" type="text/ng-template">
+	<ion-view view-title="心愿匹配推荐" hide-tabs=true>
+
+		<ion-nav-buttons side="primary">
+			<a class="button button-clear" ui-sref="tab.home">取消</a>
+		</ion-nav-buttons>
+
+
+		<ion-content has-subheader="false" style="top:80px;">
+			<p style="margin-top: 20px; text-align: center; font-size: larger;" ng-show="recomList.length==0">暂无心愿推荐</p>
+
+			<ion-list id="recom_wish_list">
+				<ion-item class="list card" ng-repeat="item in recomList">		
+					<div class="item item-avatar" style="min-height:40px;">
+						<img src="images/user.jpg">
+						<h2>发起人：user{{item.customer_id}}</h2>
+						<p>2016-07-12</p>
+					</div>
+					<div class="item item-body">		
+						<p>
+							<h2>已凑单件数: {{item.wish_count}}</h2>
+							<h2>约定时间:</h2>
+							<h2>{{item.wish_time_start}} -- {{item.wish_time_end}}</h2>
+						</p>
+						<p>						
+							<button class="button button-block  button-assertive" 
+							ng-click="choseMatch( item.id)">加入约买</button>
+
+						</p>
+					</div>
+				</ion-item>
+			</ion-list>	
+		</ion-content>	
+	</ion-view>
+</script>
+
+<script id="templates/home-sysmatch-cobuy.html" type="text/ng-template">
+	<ion-view view-title="约买匹配推荐" hide-tabs=true>
+
+		<ion-nav-buttons side="primary">
+			<a class="button button-clear" ui-sref="tab.home">取消</a>
+		</ion-nav-buttons>
+
+		<ion-content has-subheader="false" style="top:80px;">
+			<p style="margin-top: 20px; text-align: center; font-size: larger;" ng-show="recomList.length==0">暂无约买推荐</p>
+
+			<ion-list id="recom_cobuy_list">
+				<ion-item class="list card" ng-repeat="item in recomList">		
+					<div class="item item-avatar" style="min-height:40px;">
+						<img src="images/user.jpg">
+						<h2>发起人：user{{item.customer_id}}</h2>
+						<p>2016-07-12</p>
+					</div>
+					<div class="item item-body">		
+						<p>
+							<h2>已凑单件数: {{item.promotion_count}}</h2>
+							<h2>约定时间:</h2>
+							<h2>{{item.min_time}} -- {{item.max_time}}</h2>
+						</p>
+						<p>						
+							<button class="button button-block  button-assertive" 
+							ng-click="choseMatch(item.id)">加入约买</button>
+
+						</p>
+					</div>
+				</ion-item>
+			</ion-list>	
+		</ion-content>	
+	</ion-view>
+</script>
+
+

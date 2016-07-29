@@ -1,0 +1,111 @@
+<ion-view  hide-tabs=true>
+	<ion-nav-title>{{promotion.title}}</ion-nav-title>
+	<ion-nav-buttons side="secondary">
+		<button class="button button-small button-outline button-light">收藏门店</button>
+	</ion-nav-buttons>
+
+
+	<ion-content has-subheader="false">
+		
+		<!-- <button class="button button-block button-positive" ng-click="pageToSubmitWish()">
+  			参与
+		</button> -->
+		<div class="list card" style="margin:0px;">
+
+			<div class="item item-image">
+				<img src="images/5795929a151ad136248b45b0_680x280.jpg">
+			</div>
+
+			<div class="item item-body">
+				<p style=" font-size: 15px;color: #ff464e;">
+					{{promotion.description}}
+				</p>
+				
+				<p>促销时间：{{promotion.start_time}} 至 {{promotion.end_time}}</p>
+				<p>地址：黄兴南路步行商业街1F优衣库</p>
+				<p><button class="button button-block button-assertive" ng-click="pageToSubmitWish()">去约买</button></p>
+			</div>
+
+		</div>
+
+		<div class="count-down">
+			<span id="countdown"></span>
+		</div>
+
+		<div style="text-align: center; "><span style="color: rgb(209, 209, 209);">--------------部分商品展示-------------</span></div>
+		<ion-list>
+			<ion-item  class="list card">
+				<div class="item item-image">
+					<img src="images/578c540d151ad1e5478b45b1_800x800.jpg">
+				</div>
+
+				<div class="item item-body">
+				<p>
+					<span>条纹宽松大码连衣裙</span>
+					<span style="font-size: 15px;color: #ff464e; float:right;">门店价：129元</span>
+				</p>
+				</div>
+			</ion-item>
+			<ion-item  class="list card">
+				<div class="item item-image">
+					<img src="images/5771e0cc151ad1dc078b4573_800x800.jpg">
+				</div>
+
+				<div class="item item-body">
+				<p>
+					<span>条纹宽松大码连衣裙</span>
+					<span style="font-size: 15px;color: #ff464e; float:right;">门店价：129元</span>
+				</p>
+				</div>
+			</ion-item>
+			<ion-item class="list card">
+				<div class="item item-image">
+					<img src="images/5771e09e151ad180078b4576_800x800.jpg">
+				</div>
+
+				<div class="item item-body">
+				<p>
+					<span>条纹宽松大码连衣裙</span>
+					<span style="font-size: 15px;color: #ff464e; float:right;">门店价：129元</span>
+				</p>
+				</div>
+			</ion-item>
+			<ion-item  class="list card">
+				<div class="item item-image">
+					<img src="images/5771e12d151ad1fe078b4588_800x800.jpg">
+				</div>
+
+				<div class="item item-body">
+				<p>
+					<span>条纹宽松大码连衣裙</span>
+					<span style="font-size: 15px;color: #ff464e; float:right;">门店价：129元</span>
+				</p>
+				</div>
+			</ion-item>
+			<ion-item  class="list card">
+				<div class="item item-image">
+					<img src="images/5771e099151ad1dc078b456f_800x800.jpg">
+				</div>
+
+				<div class="item item-body">
+				<p>
+					<span>条纹宽松大码连衣裙</span>
+					<span style="font-size: 15px;color: #ff464e; float:right;">门店价：129元</span>
+				</p>
+				</div>
+			</ion-item>
+			<ion-item  class="list card">
+				<div class="item item-image">
+					<img src="images/57956d0f151ad1d22e8b45b7_800x800.jpg">
+				</div>
+
+				<div class="item item-body">
+				<p>
+					<span>条纹宽松大码连衣裙</span>
+					<span style="font-size: 15px;color: #ff464e; float:right;">门店价：129元</span>
+				</p>
+				</div>
+			</ion-item>
+		</ion-list>
+	</ion-content>
+</ion-view>

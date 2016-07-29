@@ -1,0 +1,193 @@
+<ion-view view-title="注册" hide-tabs=true>
+	<!-- <ion-nav-buttons side="left">
+		<button class="button button-icon icon ion-ios-arrow-back" ui-sref="login" style='padding-top: 5px;'>
+		</button>	
+	
+	</ion-nav-buttons>	 -->
+	<ion-content has-subheader="false">
+		<ion-list>
+			<div class="item item-divider"></div>
+			<div class="item row" style="height: 50px; padding-top: 15px; font-size: inherit;">
+				<div class="col-33"><span style="color: rgb(239, 71, 58);">1.输入手机号</span>
+				<i class="icon ion-ios-arrow-right"></i></div>
+				
+				<div class="col-33">2.输入验证码 <i class="icon
+				 ion-ios-arrow-right"></i></div>
+				
+				<div class="col-33">3.设置密码</div>
+			</div>
+			<div class="item item-divider"></div>
+			<div class="item item-input item-floating-label">				
+				<input type="text" placeholder="请输入手机号" ng-model="telephone">					        
+			</div>
+		</ion-list>
+
+		<div class="padding" style="padding-bottom: 0px;">
+			<button class="button button-block button-assertive" ui-sref="registerStep2">发送验证码</button>
+		</div>
+
+		<div style="text-align: center;">
+			<a ui-sref="tab.mailRegister">
+				<span style="color: rgb(239, 71, 58);">邮箱注册</span>
+			</a>
+		</div>
+
+		<!-- <div class="row padding" style="padding-top: 0px;">
+			<div class="col-50" style="text-align: left;">
+				<label class="checkbox"><input type="checkbox"></label>我已阅读并同意<a href="">
+				<span style="color: rgb(239, 71, 58);">衣街用户协定</span></a>
+			</div>
+			<div class="col-50" style="text-align: right;">
+				<a href="">
+					<span style="color: rgb(239, 71, 58);">邮箱注册</span>
+				</a>
+			</div>
+		</div> -->
+	</ion-content>
+</ion-view>
+
+<script id="templates/phone-register-step2.html" type="text/ng-template">
+	<ion-view view-title="注册">	
+		<ion-content has-subheader="false">
+			<ion-list>
+				<div class="item item-divider"></div>
+				<div class="item row" style="height: 50px; padding-top: 15px; font-size: inherit;">
+					<div class="col-33">1.输入手机号</div>	
+					<div class="col-33"><span style="color: rgb(239, 71, 58);">2.输入验证码 </span></div>			
+					<div class="col-33">3.设置密码</div>
+				</div>
+				<div class="item item-divider"></div>
+				<div class="item item-input item-input-inset">
+
+					<input type="text" placeholder="请输入短信验证码">
+
+					<button class="button button-small">
+						发送验证码
+					</button>
+				</div>
+
+
+			</ion-list>
+
+			<div class="padding" style="padding-bottom: 0px;">
+				<button class="button button-block button-assertive" ui-sref="registerStep3">提交验证码</button>
+			</div>		
+		</ion-content>
+	</ion-view>
+</script>
+
+<script id="templates/phone-register-step3.html" type="text/ng-template">
+	<ion-view view-title="注册">	
+		<ion-content has-subheader="false">
+			<ion-list>
+				<div class="item item-divider"></div>
+				<div class="item row" style="height: 50px; padding-top: 15px; font-size: inherit;">
+					<div class="col-33">1.输入手机号</div>	
+					<div class="col-33">2.输入验证码</div>			
+					<div class="col-33"><span style="color: rgb(239, 71, 58);">3.设置密码</span></div>
+				</div>
+				<div class="item item-divider"></div>
+				<div class="item item-input item-floating-label">					
+					<input type="password" placeholder="设置密码">		
+				</div>
+				<div class="item item-input item-floating-label">					
+					<input type="password" placeholder="确认密码">		
+				</div>
+			</ion-list>
+
+			<div class="padding" style="padding-bottom: 0px;">
+				<button class="button button-block button-assertive">注册</button>
+			</div>		
+		</ion-content>
+	</ion-view>
+</script>
+
+<script id="templates/mail-register.html" type="text/ng-template" >
+	<ion-view view-title="邮箱注册" hide-tabs=true>	
+		<ion-content has-subheader="false" ng-controller="registerCtrl">
+			<form name="registerForm" ng-submit="mailRegister(user)" novalidate>
+			<ion-list>
+				
+					<div class="item item-input item-floating-label">	
+						<div class="row">
+							<div class="col-90">
+								<input type="text" placeholder="用户名" name="username" ng-model="user.username" required>
+							</div>
+							<div class="col-10" ng-click="reset('username')">
+								<i class="icon ion-close-round" 
+								style="color: rgb(209, 216, 227); padding-left: 10px;"></i>
+							</div>
+						</div>			
+						<div style="color:red" ng-show="registerForm.username.$touched && registerForm.username.$invalid">
+							<span ng-show="registerForm.username.$error.required">用户名不能为空</span>
+						</div>
+
+					</div>
+					<div class="item item-input item-floating-label">
+					
+						<div class="row">
+							<div class="col-90">
+								<input type="email" placeholder="邮箱地址" name="email" ng-model="user.email" required>
+							</div>
+							<div class="col-10" ng-click="reset('email')">
+								<i class="icon ion-close-round" 
+								style="color: rgb(209, 216, 227); padding-left: 10px;"></i>
+							</div>
+						</div>
+						<div style="color:red" ng-show="registerForm.email.$touched && registerForm.email.$invalid">
+							<span ng-show="registerForm.email.$error.required">邮箱不能为空</span>
+							<span ng-show="registerForm.email.$error.email">邮箱地址非法</span>
+						</div>							
+					</div>
+
+					<div class="item item-input item-floating-label">					
+						
+						<div class="row">
+							<div class="col-90">
+								<input type="password" placeholder="设置密码" ng-model="user.password" name="password" required>
+							</div>
+							<div class="col-10" ng-click="reset('password')">
+								<i class="icon ion-close-round" 
+								style="color: rgb(209, 216, 227); padding-left: 10px;"></i>
+							</div>
+						</div>
+						<span style="color:red" ng-show="registerForm.password.$touched && registerForm.password.$invalid">
+							<span ng-show="registerForm.password.$error.required">密码不能为空</span>
+						</span>			
+					</div>
+					<div class="item item-input item-floating-label">					
+						
+						<div class="row">
+							<div class="col-90">
+								<input type="password" placeholder="确认密码" ng-model="user.passwordAgain" name="passwordAgain" required>
+							</div>
+							<div class="col-10" ng-click="reset('passwordAgain')">
+								<i class="icon ion-close-round" 
+								style="color: rgb(209, 216, 227); padding-left: 10px;"></i>
+							</div>
+						</div>
+
+					</div>
+				
+			</ion-list>
+
+			<div class="padding" style="padding-bottom: 0px;">
+			<!-- ng-disabled="registerForm.username.$pristine || registerForm.password.$pristine || registerForm.email.$pristine || myForm.email.$invalid || pwdNotSame" -->
+				<button type="submit" class="button button-block button-assertive"  
+				 ng-disabled="registerForm.$invalid">立即注册</button>
+			</div>
+			</form>		
+		</ion-content>
+	</ion-view>
+</script>
+
+
+
+<script id="templates/wait-to-confirm.html" type="text/ng-template">
+	<ion-view view-title="">	
+		<ion-content has-subheader="false">
+			<p>系统已经发送验证链接到您邮箱，请登录邮箱验证</p>
+			<button class="button button-assertive">重新发送</button>
+		</ion-content>
+	</ion-view>
+</script>

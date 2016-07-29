@@ -1,0 +1,34 @@
+<ion-view view-title="约聊" hide-tabs=false>
+	<!-- <ion-header-bar align-title="center" class="bar-assertive">
+		<div class="h1 title">约聊</div>
+	</ion-header-bar> -->
+
+
+	<ion-content>
+		<ion-list rj-close-back-drop>
+			<ion-item class="item-avatar" ng-class="{'rj-item-top': message.isTop}" on-hold="popupMessageOpthins(message)" rj-hold-active ng-repeat="message in messages | orderBy:['isTop', 'lastMessage.timeFrome1970']:true" ng-click="messageDetils(message)">
+				<img ng-src="{{message.pic}}">
+				<span class="rj-sm-red-icon" ng-show="message.showHints"><p ng-bind="message.noReadMessages"></p></span>
+				<h2 ng-bind="message.name"></h2>
+				<p class="rj-list-p" ng-bind="message.lastMessage.content"></p>
+				<span class="rj-push-right" ng-bind="message.lastMessage.time"></span>
+			</ion-item>
+		</ion-list>
+	</ion-content>
+</ion-view>
+
+<script  id='templates/popup.html' type="text/ng-template">
+	<ion-list>
+		<ion-item class="my-popup" ng-click="markMessage()">
+			<h2 ng-hide="messages[popup.index].showHints">标为未读</h2>
+			<h2 ng-show="messages[popup.index].showHints">标为已读</h2>
+		</ion-item>
+		<ion-item class="my-popup" ng-click="topMessage()">
+			<h2 ng-hide="messages[popup.index].isTop">置顶聊天</h2>
+			<h2 ng-show="messages[popup.index].isTop">取消置顶</h2>
+		</ion-item>
+		<ion-item class="my-popup" ng-click="deleteMessage()">
+			<h2>删除该聊天</h2>
+		</ion-item>
+	</ion-list>
+</script>

@@ -110,6 +110,18 @@ angular.module('yiave.routes', [])
             
         })
 
+        .state('tab.map', {
+            url: '/home/promotion/map',
+            views:{
+                'tab-home':{
+                    templateUrl: 'templates/home-map.html',  
+                    prefetchTemplate: false,                 
+                    controller: 'mapCtrl as controller'
+
+                }
+            }
+        })
+
         .state('tab.submitWish', {
             url: '/home/promotion/:promoID/submitWish',
             views:{

@@ -513,3 +513,46 @@ $scope.morePromoCanBeLoaded = function() {
         
     }
 }])
+
+.controller('mapCtrl', ['$scope', function($scope){
+    
+     $scope.$on("$ionicView.enter", function(event, data) {
+        event.preventDefault();
+        
+        var shopPosi = [112.98552275,28.18591734];
+        var shopAddr = "黄兴南路步行商业街1F优衣库";
+
+        var map = new AMap.Map('container',{
+            resizeEnable: true,
+            zoom: 15,
+            center: shopPosi
+        });
+        var infowindow;
+        var marker = new AMap.Marker({
+            position: shopPosi,
+            map:map
+        });
+        marker.on('click',function(e){
+          infowindow.open(map,e.target.getPosition());
+        })
+
+        AMap.plugin('AMap.AdvancedInfoWindow',function(){
+            infowindow = new AMap.AdvancedInfoWindow({
+            content: '<h3 class="info-title">门店地址</h1>'+
+            '<div class="info-content">'+shopAddr+'</div>',
+            offset: new AMap.Pixel(0, -30),
+            asOrigin:false
+        });
+          infowindow.open(map,new AMap.LngLat(shopPosi[0], shopPosi[1]));
+        });
+
+        // AMap.plugin(['AMap.ToolBar','AMap.Scale'],function(){
+        //     var toolBar = new AMap.ToolBar();
+        //     var scale = new AMap.Scale();
+        //     map.addControl(toolBar);
+        //     map.addControl(scale);
+        // })
+
+    })
+}])
+

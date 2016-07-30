@@ -30,13 +30,13 @@
 						<p style="font-size: 12px;color: #bbb;">{{promo.publish_date}}</p>
 					</div>
 
-					<div class="item item-body">
+					<div class="item item-body" ng-click="pageToPromoDetails(promo.id)">
 						<img class="full-image" src="{{promo.image}}">
 						
 						<p style=" font-size: 15px;color: #ff464e;">
 							<span class="brand-tag-{{promo.type}}">{{promo.label}}</span>{{promo.description}}
 						</p>
-						<button class="button button-small button-assertive icon-right ion-chevron-right" style="float: right;" ng-click="pageToPromoDetails(promo.id)">了解详情</button>
+						<!-- <button class="button button-small button-assertive icon-right ion-chevron-right" style="float: right;" ng-click="pageToPromoDetails(promo.id)">了解详情</button> -->
 						
 						<p>促销时间：{{promo.start_time}} 至 {{promo.end_time}}</p>
 						<p class="text-address">地址：黄兴南路步行商业街1F优衣库</p>

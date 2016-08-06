@@ -20,7 +20,7 @@ function launchFullscreen(element) {
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('yiave', ['ionic', 'yiave.controllers-home-tab','yiave.controllers-chat-tab','yiave.controllers-me-tab', 'yiave.routes', 'yiave.directives',
+angular.module('yiave', ['ionic', 'yiave.controllers-home-tab','yiave.controllers-chat-tab','yiave.controllers-me-tab','yiave.controllers-business', 'yiave.routes', 'yiave.directives',
  'yiave.services', 'ngCookies','ngCordova', 'ionic-datepicker', 'ionic-timepicker', 'ionic-toast'
  //'monospaced.elastic'
  ])

@@ -296,3 +296,45 @@ angular.module('yiave.services',[])
     
 
 })
+
+.factory('wishService',  function(){
+    var recomWishs = new Array();
+    var myWish = new Object();
+    return {
+        saveRecom: function (wishs) {
+            recomWishs = wishs;
+        },
+
+        getRecom: function () {
+            return recomWishs;
+        },
+
+        saveMyWish: function (wish) {
+            myWish = wish;
+        },
+        getMyWish: function () {
+            return myWish;
+        }
+
+    };
+})
+
+.factory('cobuyService', function(){
+    var recomCobuys = new Array();
+    var myCobuy = new Object();
+    return {
+        saveRecom: function (cobuys) {
+            recomCobuys = cobuys;
+        },
+
+        getRecom: function () {
+            return recomCobuys;
+        },
+        saveMyCobuy: function (cobuy) {
+            myCobuy = cobuy;
+        },
+        getMyCobuy: function () {
+            return myCobuy;
+        }
+    };
+})

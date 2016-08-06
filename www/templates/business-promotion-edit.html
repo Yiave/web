@@ -1,0 +1,55 @@
+<ion-view view-title="{{viewTitle}}" hide-tabs=true>
+	<!-- <ion-nav-buttons side="left">
+		<button class="button button-icon icon ion-ios-arrow-back" ui-sref="tab.me" style='padding-top: 5px;'>
+		</button>	
+
+	</ion-nav-buttons> -->
+	<ion-content has-subheader="false">
+
+		<form name="promoPublishForm" ng-submit="publishPromo(promo)" novalidate>
+			<ion-list>
+				<label class="item item-input" >
+					<div class="input-label">标题</div>
+					<input type="text" ng-model="promo.title" ng-readonly="{{isEdit}}" required>
+				</label>
+
+				<label class="item item-input" >
+					<div class="input-label">描述</div>
+					<input type="text" ng-model="promo.description" required>
+				</label>
+
+				<label class="item item-input item-select">
+					<div class="input-label">
+						促销类型
+					</div>
+					<select ng-model="promo.type" ng-options="item.id as item.label for item in promoTypeOption"  ng-readonly="{{isEdit}}">
+					</select>
+				</label>
+
+				<label class="item item-input item-select">
+					<div class="input-label">
+						满件件数
+					</div>
+					<select ng-model="promo.promotion_count" ng-options="item as item for item in promoCountOption" ng-readonly="{{isEdit}}">
+					</select>
+				</label>
+
+				<div class="item item-input">
+					<span class="input-label">起始时间</span>
+					<input type="text" placeholder= "点击选择时间" ng-click="openStartDP()"  ng-readonly="{{isEdit}}"
+					ng-model="promo.start_time" required >
+				</div>
+
+				<div class="item item-input">
+					<span class="input-label">结束时间</span>
+					<input type="text" placeholder= "点击选择时间" ng-click="openEndDP()" ng-readonly="{{isEdit}}"
+					ng-model="promo.end_time" required>
+				</div>
+
+				<button class="button button-block button-assertive" type="submit" 
+				ng-disabled="promoPublishForm.$invalid">提交</button>
+			</ion-list>
+
+		</form>
+	</ion-content>
+</ion-view>	

@@ -27,8 +27,8 @@ function processPromos (promotions) {
         promotions[i].start_time = DateToStr(new Date(promotions[i].start_time));
         promotions[i].end_time = DateToStr(new Date(promotions[i].end_time));
 
-        //promotions[i].publish_date = DateToStr(new Date(promotions[i].publish_date));
-        promotions[i].publish_date = DateToStr(new Date(2016, 7, 1));
+        promotions[i].publish_date = DateToStr(new Date(promotions[i].publish_date));
+        
 
         var type = promotions[i].type;
         if(type == 0){
@@ -50,11 +50,11 @@ angular.module('yiave.controllers-home-tab', [])
 
 		$(".flexslider").flexslider({
 			slideshowSpeed: 2000,
-        //展示时间间隔ms
-        animationSpeed: 700,
-        //滚动时间ms
-        directionNav: true,
-        touch: true//是否支持触屏滑动
+            //展示时间间隔ms
+            animationSpeed: 700,
+            //滚动时间ms
+            directionNav: true,
+            touch: true//是否支持触屏滑动
         });
 
 		$scope.$on("$ionicView.beforeEnter", function() {
@@ -73,7 +73,7 @@ angular.module('yiave.controllers-home-tab', [])
     });
 
 
-		$scope.pageToPromoDetails = function(promoID) {
+	$scope.pageToPromoDetails = function(promoID) {
         //promotionService.getPromotionById(promoID)  //暂时注释掉
         //判断网络状态
         // if(navigator.connection.type == Connection.NONE){
@@ -84,9 +84,7 @@ angular.module('yiave.controllers-home-tab', [])
         //http获取promotion详细数据
         $http.get(apiHeader + "promotions/" + promoID).then(function(response) {
         	promotionService.updatePromoDetails(response.data);
-        	$state.go("tab.promoDetails", {
-        		"promoID": promoID
-        	});
+        	$state.go("tab.promoDetails", {"promoID": promoID});
         }, function(response) {})
         .catch(function(response) {
 
@@ -162,9 +160,9 @@ $scope.morePromoCanBeLoaded = function() {
 }])
 
 .controller('wishSubmitCtrl', ['$scope', '$http', 'promotionService', '$state', 'ionicDatePicker', 'ionicTimePicker','$timeout', 
-    'ionicToast', '$rootScope','$ionicLoading', '$ionicModal', '$ionicPopup','$stateParams', 'sysMatchRecomService',
+    'ionicToast', '$rootScope','$ionicLoading', '$ionicModal', '$ionicPopup','$stateParams', 'wishService','cobuyService',
     function($scope, $http, promotionService, $state,ionicDatePicker, ionicTimePicker, $timeout, 
-        ionicToast, $rootScope, $ionicLoading, $ionicModal, $ionicPopup, $stateParams, sysMatchRecomService){
+        ionicToast, $rootScope, $ionicLoading, $ionicModal, $ionicPopup, $stateParams, wishService,cobuyService){
 
     $scope.wish = new Object();
     $scope.wish.startDatetime = "";
@@ -225,7 +223,8 @@ $scope.morePromoCanBeLoaded = function() {
             },
             //可以选择的日期段,暂时注释
             from: new Date(),
-            to: new Date($scope.promotion.end_time),
+            //to: new Date($scope.promotion.end_time),
+            to: ($scope.wish.endDatetime == ""||$scope.wish.endDatetime == undefined) ? new Date($scope.promotion.end_time): StringToDate($scope.wish.endDatetime),
             //有输入时显示当前选择的日期，初始为当前日期
             inputDate: ($scope.wish.startDatetime == "") ? new Date() : StringToDate($scope.wish.startDatetime)
         }
@@ -246,118 +245,16 @@ $scope.morePromoCanBeLoaded = function() {
                 ionicTimePicker.openTimePicker(endTP);
             },
             //可以选择的日期段,暂时注释
-            from: new Date(),
+            from: ($scope.wish.startDatetime == ""||$scope.wish.startDatetime == undefined) ? new Date() : StringToDate($scope.wish.startDatetime),
             to: new Date($scope.promotion.end_time),
-            inputDate: ($scope.wish.endDatetime == "") ? new Date() : StringToDate($scope.wish.endDatetime)
+
+            inputDate: ($scope.wish.endDatetime == "") ? (($scope.wish.startDatetime == ""||$scope.wish.startDatetime == undefined )? new Date() :StringToDate($scope.wish.startDatetime)) : StringToDate($scope.wish.endDatetime)
         }
         ionicDatePicker.openDatePicker(endDP);
     }
 
     $scope.submitWish = function(wish) {
-        //判断网络连接状态
-        // if(navigator.connection.type == Connection.NONE){
-        //      ionicToast.show('网络连接不可用，请稍候重试', 'top', false, 2000);
-        //      return;
-        //}
-
-        // var recomList = {
-        //     "cobuys": [
-        //     {
-        //         "customer_id": 1, 
-        //         "id": 14, 
-        //         "is_matched": false, 
-        //         "is_open": true, 
-        //         "match_type": 0, 
-        //         "promotion_id": 1, 
-        //         "wish_count": 1, 
-        //         "wish_time_end": "2016-07-26 17:00:00", 
-        //         "wish_time_start": "2016-07-26 16:00:00"
-        //     }, 
-        //     {
-        //         "customer_id": 1, 
-        //         "id": 15, 
-        //         "is_matched": false, 
-        //         "is_open": true, 
-        //         "match_type": 0, 
-        //         "promotion_id": 1, 
-        //         "wish_count": 1, 
-        //         "wish_time_end": "2016-07-26 17:00:00", 
-        //         "wish_time_start": "2016-07-26 16:00:00"
-        //     }, 
-        //     {
-        //         "customer_id": 1, 
-        //         "id": 17, 
-        //         "is_matched": false, 
-        //         "is_open": true, 
-        //         "match_type": 0, 
-        //         "promotion_id": 1, 
-        //         "wish_count": 1, 
-        //         "wish_time_end": "2016-07-26 17:00:00", 
-        //         "wish_time_start": "2016-07-26 16:00:00"
-        //     }
-        //     ], 
-        //     "wishs": [
-        //     {
-        //         "customer_id": 1, 
-        //         "id": 14, 
-        //         "is_matched": false, 
-        //         "is_open": true, 
-        //         "match_type": 0, 
-        //         "promotion_id": 1, 
-        //         "wish_count": 1, 
-        //         "wish_time_end": "2016-07-26 17:00:00", 
-        //         "wish_time_start": "2016-07-26 16:00:00"
-        //     }, 
-        //     {
-        //         "customer_id": 1, 
-        //         "id": 15, 
-        //         "is_matched": false, 
-        //         "is_open": true, 
-        //         "match_type": 0, 
-        //         "promotion_id": 1, 
-        //         "wish_count": 1, 
-        //         "wish_time_end": "2016-07-26 17:00:00", 
-        //         "wish_time_start": "2016-07-26 16:00:00"
-        //     }, 
-        //     {
-        //         "customer_id": 1, 
-        //         "id": 17, 
-        //         "is_matched": false, 
-        //         "is_open": true, 
-        //         "match_type": 0, 
-        //         "promotion_id": 1, 
-        //         "wish_count": 1, 
-        //         "wish_time_end": "2016-07-26 17:00:00", 
-        //         "wish_time_start": "2016-07-26 16:00:00"
-        //     }
-        //     ]
-        // };
-        // sysMatchRecomService.saveRecom(recomList);
-        // $state.go("tab.sysMatchRecom",{"promoID":$scope.promotion.id});
-
-        // $scope.cobuy = {
-        //          "customer_id": 1, 
-        //          "id": 15, 
-        //          "is_matched": false, 
-        //          "is_open": true, 
-        //          "match_type": 0, 
-        //          "promotion_id": 1, 
-        //          "wish_count": 1, 
-        //          "wish_time_end": "2016-07-26 17:00:00", 
-        //          "wish_time_start": "2016-07-26 16:00:00"
-        //      };
-        // $scope.cobuyModalTitle = "您创建的约买信息为：";
-
-        // //您创建的cobuy: cobuy信息
-        // $ionicModal.fromTemplateUrl('templates/usermatch-cobuyinfo-modal.html', {
-        //     scope: $scope,
-        //     animation: 'slide-in-up'
-        // }).then(function(modal) {
-        //     $scope.cobuyinfoModal = modal;
-        //     modal.show();
-        // });
-
-        
+    
         //判断登录状态
         if($rootScope.hasLogin == false){
             ionicToast.show('您还未登录，请先登录', 'middle', false, 2000);
@@ -424,8 +321,11 @@ $scope.morePromoCanBeLoaded = function() {
             if (wish.matchType == 0) {
                 //wish, cobuy 推荐列表
                 
-                sysMatchRecomService.saveRecom(response.data);
-                $state.go("tab.sysMatchRecom",{"promoID":$scope.promotion.id});
+                wishService.saveRecom(response.data.wishs);
+                wishService.saveMyWish(response.data.w);
+                cobuyService.saveRecom(response.data.cobuys);
+
+                $state.go("tab.sysMatchRecom",{"promoID":$scope.promotion.id, "wishID":response.data.w.id});
 
             } else if (wish.matchType == 2) {
                 /*cobuy数据
@@ -443,6 +343,8 @@ $scope.morePromoCanBeLoaded = function() {
                     }
                 */
                 ionicToast.show('创建成功', 'top', false, 2000);
+                cobuyService.saveMyCobuy(response.data);
+
                 $scope.cobuy = response.data;
                 $scope.cobuyModalTitle = "您创建的约买信息为：";
                 //您创建的cobuy: cobuy信息
@@ -456,6 +358,8 @@ $scope.morePromoCanBeLoaded = function() {
 
             } else if (wish.matchType == 1) {
                 ionicToast.show('加入成功', 'top', false, 2000);
+                cobuyService.saveMyCobuy(response.data);
+
                 $scope.cobuy = response.data;
                 //您加入的cobuy: cobuy信息 
                 $scope.cobuyModalTitle = "您加入的约买信息为：";
@@ -489,28 +393,128 @@ $scope.morePromoCanBeLoaded = function() {
 
 }])
 
-.controller('wishRecomCtrl', ['$scope','sysMatchRecomService','$state', 
-    function($scope, sysMatchRecomService,$state){
+.controller('wishRecomCtrl', ['$scope','wishService','$state', '$stateParams', '$ionicLoading','ionicToast','$timeout','$http','$ionicModal',
+    function($scope, wishService,$state, $stateParams,$ionicLoading,ionicToast,$timeout,$http,$ionicModal){
 
     $scope.$on("$ionicView.beforeEnter", function(event, data) {
         event.preventDefault();
-        $scope.recomList = sysMatchRecomService.getRecom().wishs;
+        $scope.recomList = wishService.getRecom();
         
     })
     $scope.choseMatch = function(id) {
-        
+        //判断网络连接状态
+        // if(navigator.connection.type == Connection.NONE){
+        //      ionicToast.show('网络连接不可用，请稍候重试', 'top', false, 2000);
+        //      return;
+        //}
+        var recomWishs = $scope.recomList;
+        var chosedWish = new Object();
+        for (var i = 0; i < recomWishs.length; i++) {
+            if(recomWishs[i].id === id){
+                chosedWish = recomWishs[i];
+                break;
+            }
+        }
+        $ionicLoading.show();
+        $http.post(apiHeader+"promotions/"+$stateParams.promoID+"/clothing/cobuys/system_match/recom_wish", params = {
+            wish1: chosedWish,
+            wish2: wishService.getMyWish(),
+        })
+            .then(function (response) {
+                ionicToast.show('参与成功', 'top', false, 2000);
+
+                // $scope.cobuy = response.data;
+                // $scope.cobuyModalTitle = "您加入的约买信息为：";
+                // $ionicModal.fromTemplateUrl('templates/usermatch-cobuyinfo-modal.html', {
+                //     scope: $scope,
+                //     animation: 'slide-in-up'
+                // }).then(function(modal) {
+                //     $scope.cobuyinfoModal = modal;
+                //     modal.show();
+                // });
+
+
+                $timeout(function () {
+                    //跳转到约买信息页面
+                    $state.go("tab.myCobuys");
+                }, 2000);
+
+            }, function (response) {
+                ionicToast.show('操作失败，请稍候重试', 'top', false, 2000);
+            })
+            .catch(function(response) {
+                ionicToast.show('操作失败，请稍候重试', 'top', false, 2000);
+            })
+            .finally(function(){
+                  $ionicLoading.hide();
+            });
+
     }
 
 }])
 
-.controller('cobuyRecomCtrl', ['$scope','sysMatchRecomService', function($scope, sysMatchRecomService){
+.controller('cobuyRecomCtrl', ['$scope','wishService','cobuyService','$ionicLoading','ionicToast','$timeout','$state','$http','$stateParams',
+ function($scope, wishService,cobuyService,$ionicLoading,ionicToast,$timeout,$state,$http,$stateParams){
+
     $scope.$on("$ionicView.beforeEnter", function(event, data) {
         event.preventDefault();  
-        $scope.recomList = sysMatchRecomService.getRecom().cobuys;
+        $scope.recomList = cobuyService.getRecom();
         
     })
     $scope.choseMatch = function(id) {
-        
+        //判断网络连接状态
+        // if(navigator.connection.type == Connection.NONE){
+        //      ionicToast.show('网络连接不可用，请稍候重试', 'top', false, 2000);
+        //      return;
+        //}
+        var recomCobuys = $scope.recomList;
+        var chosedCobuy = new Object();
+        for (var i = 0; i < recomCobuys.length; i++) {
+            if(recomCobuys[i].id === id){
+                chosedCobuy = recomCobuys[i];
+                break;
+            }
+        }
+        var myWish = wishService.getMyWish();
+        $ionicLoading.show();
+        $http.post(apiHeader+"/promotions/"+$stateParams.promoID+"/clothing/cobuys/system_match/recom_cobuy", params = {
+            "cobuy_id": chosedCobuy.id,
+            "min_time": chosedCobuy.min_time,
+            "max_time": chosedCobuy.max_time,
+            "wish_id": myWish.id,
+            "customer_id": myWish.customer_id,
+            "match_type": myWish.match_type
+
+        })
+            .then(function (response) {
+                ionicToast.show('参与成功', 'top', false, 2000);
+
+                // $scope.cobuy = response.data;
+                // $scope.cobuyModalTitle = "您加入的约买信息为：";
+                // //您创建的cobuy: cobuy信息
+                // $ionicModal.fromTemplateUrl('templates/usermatch-cobuyinfo-modal.html', {
+                //     scope: $scope,
+                //     animation: 'slide-in-up'
+                // }).then(function(modal) {
+                //     $scope.cobuyinfoModal = modal;
+                //     modal.show();
+                // });
+
+
+                $timeout(function () {
+                    //跳转到约买信息页面
+                    $state.go("tab.myCobuys");
+                }, 2000);
+            }, function (response) {
+                ionicToast.show('操作失败，请稍候重试', 'top', false, 2000);
+            })
+            .catch(function(response) {
+                ionicToast.show('操作失败，请稍候重试', 'top', false, 2000);
+            })
+            .finally(function(){
+                  $ionicLoading.hide();
+            });
+
     }
 }])
 

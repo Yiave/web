@@ -111,7 +111,7 @@ angular.module('yiave.routes', [])
         })
 
         .state('tab.map', {
-            url: '/home/promotion/map',
+            url: '/home/promotion/:promoID/map',
             views:{
                 'tab-home':{
                     templateUrl: 'templates/home-map.html',  
@@ -135,7 +135,7 @@ angular.module('yiave.routes', [])
         })
 
         .state('tab.sysMatchRecom', {
-            url: '/home/promotion/sysMatch',
+            url: '/home/promotion/:promoID/:wishID/sysMatch',
             views:{
                 'tab-home':{
                     templateUrl: 'templates/home-sysmatch-recommend.html',
@@ -284,12 +284,24 @@ angular.module('yiave.routes', [])
                
         })
 
-        .state('tab.businessInfo', {
-            url: '/me/businessInfo',
+        .state('tab.business', {
+            url: '/business/promotions',
             views:{
                 'tab-me':{
                     prefetchTemplate: false,
-                    templateUrl: 'templates/me-business-info.html'
+                    templateUrl: 'templates/business-promotions.html',
+                    controller: "businessPromotionsCtrl"
+                }
+            }       
+        })
+
+        .state('tab.businessPromoEdit', {
+            url: '/business/promotion/:promoID/:promo_operation',
+            views:{
+                'tab-me':{
+                    prefetchTemplate: false,
+                    templateUrl: 'templates/business-promotion-edit.html',
+                    controller: "businessPromoEditCtrl"
                 }
             }       
         })
@@ -301,6 +313,18 @@ angular.module('yiave.routes', [])
                 'tab-me':{
                     prefetchTemplate: false,
                     templateUrl: 'templates/me-about-us.html'
+                }
+            }   
+        })
+
+        .state('tab.myCobuys', {
+
+            url: '/me/myCobuys',
+            views:{
+                'tab-me':{
+                    prefetchTemplate: false,
+                    templateUrl: 'templates/me-myCobuys.html',
+                    controller: 'mycobuysCtrl'
                 }
             }   
         })

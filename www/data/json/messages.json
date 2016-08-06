@@ -1,96 +1,13 @@
 {
     "messages": [{
-        "id": 8,
-        "name": "东风路耐克店运动专场约买",
-        "pic": "images/logo_nike.jpg",
-        "lastMessage": {
-            "originalTime": "2016-05-27 06:34:55",
-            "time": "",
-            "timeFrome1970": 0,
-            "content": "你在干什么?",
-            "isFromeMe": false
-        },
-        "noReadMessages": 2,
-        "showHints": true,
-        "isTop": 0,
-        "message": [{
-            "isFromeMe": false,
-            "content": "你好!",
-            "time": "2016-05-22 08:50:22"
-        }, {
-            "isFromeMe": true,
-            "content": "你好, 你是谁?",
-            "time": "2016-05-22 08:51:02"
-        }, {
-            "isFromeMe": false,
-            "content": "你在干什么?",
-            "time": "2016-05-27 06:34:55"
-        }, {
-            "isFromeMe": true,
-            "content": "知道怎么搞的吗?",
-            "time": "2016-05-22 08:51:02"
-        }, {
-            "isFromeMe": false,
-            "content": "这是一道可以测出一个人有没有商业头脑的数学题",
-            "time": "2016-05-27 06:34:55"
-        }, {
-            "isFromeMe": false,
-            "content": "喝咖啡对身体好吗?",
-            "time": "2016-05-22 08:51:02"
-        }, {
-            "isFromeMe": false,
-            "content": "在澳洲申请新西兰签证",
-            "time": "2016-05-27 06:34:55"
-        }, {
-            "isFromeMe": true,
-            "content": "说走就走的旅行",
-            "time": "2016-05-22 08:51:02"
-        }, {
-            "isFromeMe": false,
-            "content": "ok",
-            "time": "2016-05-27 06:34:55"
-        }, {
-            "isFromeMe": true,
-            "content": "拉玛西亚",
-            "time": "2016-05-22 08:51:02"
-        }, {
-            "isFromeMe": true,
-            "content": "拉玛西亚影视学院招生简章",
-            "time": "2016-05-27 06:34:55"
-        }, {
-            "isFromeMe": true,
-            "content": "去黑头产品排行榜",
-            "time": "2016-05-22 08:51:02"
-        }, {
-            "isFromeMe": false,
-            "content": "美国大使馆 北京",
-            "time": "2016-05-27 06:34:55"
-        }, {
-            "isFromeMe": false,
-            "content": "被开水烫伤怎么办?",
-            "time": "2016-05-22 08:51:02"
-        }, {
-            "isFromeMe": false,
-            "content": "谁说菜鸟不会数据分析?",
-            "time": "2016-05-27 06:34:55"
-        }, {
-            "isFromeMe": true,
-            "content": "谁念西风独自凉",
-            "time": "2016-05-22 08:51:02"
-        }, {
-            "isFromeMe": false,
-            "content": "被酒莫惊春睡重，赌书消得泼茶香，当时只道是寻常",
-            "time": "2016-05-27 06:34:55"
-        }]
-    }, {
         "id": 1,
-        "name": "万达优衣库店夏季裙装专场约买",
+        "name": "优衣库夏季裙装专场",
         "pic": "images/logo_uniqlo.jpg",
         "lastMessage": {
             "originalTime": "2016-05-26 5:22:55",
             "time": "",
             "timeFrome1970": 0,
-            "content": "明天什么时候去吃饭?",
+            "content": "明天什么时候约?",
             "isFromeMe": false
         },
         "noReadMessages": 5,
@@ -98,15 +15,15 @@
         "isTop": 0,
         "message": [{
             "isFromeMe": false,
-            "content": "你好!",
+            "content": "你好，很高兴能和你一起约买",
             "time": "2016-05-22 08:50:22"
         }, {
             "isFromeMe": true,
-            "content": "你好, 你是谁?",
+            "content": "我也是",
             "time": "2016-05-22 08:51:02"
         }, {
             "isFromeMe": false,
-            "content": "明天什么时候去吃饭?",
+            "content": "明天我们什么时候约?",
             "time": "2016-05-26 5:22:55"
         }]
     }, {
@@ -117,7 +34,7 @@
             "originalTime": "2016-05-22 15:34:55",
             "time": "",
             "timeFrome1970": 0,
-            "content": "我就在软件园?",
+            "content": "我也是，已经在公交车上了",
             "isFromeMe": false
         },
         "noReadMessages": 0,
@@ -125,30 +42,20 @@
         "isTop": 0,
         "message": [{
             "isFromeMe": false,
-            "content": "你好!",
+            "content": "在吗？",
             "time": "2016-05-22 08:50:22"
         }, {
             "isFromeMe": true,
-            "content": "你好, 你是谁?",
+            "content": "在，你们到哪了？",
             "time": "2016-05-22 08:51:02"
         }, {
             "isFromeMe": false,
-            "content": "我就在软件园?",
+            "content": "我马上就要到了",
+            "time": "2016-05-22 15:34:55"
+        },{
+            "isFromeMe": true,
+            "content": "我马上就要到了",
             "time": "2016-05-22 15:34:55"
         }]
-    }, {
-        "id": 2,
-        "name": "步行街阿迪达斯店休闲专场约买",
-        "pic": "images/logo4.jpg",
-        "lastMessage": {
-            "originalTime": "2016-05-21 15:34:55",
-            "time": "",
-            "timeFrome1970": 0,
-            "content": "周末有什么安排?",
-            "isFromeMe": false
-        },
-        "noReadMessages": 20,
-        "showHints": true,
-        "isTop": 0
     }]
 }

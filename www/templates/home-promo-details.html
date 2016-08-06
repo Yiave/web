@@ -1,8 +1,11 @@
-<ion-view  hide-tabs=true>
+<ion-view hide-back-button='true' hide-tabs=true>
 	<ion-nav-title>{{promotion.title}}</ion-nav-title>
-	<ion-nav-buttons side="secondary">
-		<button class="button button-small button-outline button-light">收藏门店</button>
+	<ion-nav-buttons side="primary">
+		<button class="button button-icon icon ion-android-arrow-back" ui-sref="tab.home" style='padding-top: 5px;'></button>
+		<!-- <button class="button button-small button-outline button-light">收藏门店</button> -->
 	</ion-nav-buttons>
+
+
 
 
 	<ion-content has-subheader="false">
@@ -23,7 +26,7 @@
 				<hr style="FILTER: progid:DXImageTransform.Microsoft.Glow(color=#d1d1d1,strength=10)" color=#d1d1d1 SIZE=1>
 				<p>促销时间：{{promotion.start_time}} 至 {{promotion.end_time}}</p>
 				<hr style="FILTER: progid:DXImageTransform.Microsoft.Glow(color=#d1d1d1,strength=10)" color=#d1d1d1 SIZE=1>
-				<p ui-sref="tab.map">
+				<p ui-sref="tab.map({promoID:promotion.id})">
 					<span class="ion-ios-location-outline"></span> 地址：黄兴南路步行商业街1F优衣库
 					<span class="ion-chevron-right" style="float: right;"></span>
 				</p>

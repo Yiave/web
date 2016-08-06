@@ -202,7 +202,8 @@ angular.module('yiave.controllers-me-tab', [])
     }
     ])
 
-.controller('meCtrl', ['$scope', '$rootScope', 'userService', function($scope, $rootScope, userService) {
+.controller('meCtrl', ['$scope', '$rootScope', 'userService','ionicToast','$state',
+ function($scope, $rootScope, userService,ionicToast, $state) {
 	$scope.$on("$ionicView.beforeEnter", function() {
 		if ($rootScope.hasLogin == false) {
 			$scope.user = {
@@ -218,6 +219,14 @@ angular.module('yiave.controllers-me-tab', [])
 			}
 		}
 	});
+
+    $scope.pageToBusiness = function () {
+        if ($rootScope.hasLogin == false) {
+            ionicToast.show('您还未登录，请先登录', 'middle', false, 2000);
+        }else{
+            $state.go("tab.business");
+        }
+    }
 }
 ])
 
@@ -375,3 +384,80 @@ angular.module('yiave.controllers-me-tab', [])
     // }
 }
 ])
+
+.controller('mycobuysCtrl', ['$http', '$scope','ionicToast','$ionicLoading','$rootScope','promotionService','$state',
+    function($http,$scope,ionicToast,$ionicLoading,$rootScope,promotionService,$state){
+    
+    $scope.$on("$ionicView.beforeEnter", function(event, data) {
+
+        if (data.fromCache == false) {
+            $ionicLoading.show();
+            //判断网络连接状态
+            // if(navigator.connection.type == Connection.NONE){
+            //      ionicToast.show('网络连接不可用，请稍候重试', 'top', false, 2000);
+            //$ionicLoading.hide();
+            //      return;
+            //}
+            $http.get(apiHeader+"cobuys/customer/"+$rootScope.userid)
+                .then(function (response) {    
+
+                    var cobuy_promo_pairs = new Array();
+                    var cobuys = response.data;
+
+                    for (var i = 0; i < cobuys.length; i++) {
+                        $http.get(apiHeader + "promotions/" + cobuys[i].promotion_id) 
+                        .then(function (response) {
+                            
+                            var pair = {
+                                cobuy: cobuys[i],
+                                promo: response.data
+                            };
+                            cobuy_promo_pairs.push(pair);
+
+                        }, function (response) {
+                            ionicToast.show('获取数据失败，请稍后重试', 'top', false, 2000);
+                        })
+                        .catch(function(response) {
+                            ionicToast.show('获取数据失败，请稍后重试', 'top', false, 2000);
+                        })
+                        .finally(function(){
+                              
+                        });
+                    }
+                    $scope.cobuy_promo_pairs = cobuy_promo_pairs;
+
+                }, function (response) {
+                    ionicToast.show('获取数据失败，请稍后重试', 'top', false, 2000);
+                })
+                .catch(function(response) {
+                    ionicToast.show('获取数据失败，请稍后重试', 'top', false, 2000);
+                })
+                .finally(function(){
+                      $ionicLoading.hide();
+                });     
+        }
+    })
+
+    $scope.pageToPromoDetails = function(promoID) {
+        //promotionService.getPromotionById(promoID)  //暂时注释掉
+        //判断网络状态
+        // if(navigator.connection.type == Connection.NONE){
+        //     ionicToast.show('网络连接不可用，请稍候重试', 'top', false, 2000);           
+        //     return;   
+        // }
+        
+        //http获取promotion详细数据
+        $http.get(apiHeader + "promotions/" + promoID).then(function(response) {
+            promotionService.updatePromoDetails(response.data);
+            $state.go("tab.promoDetails", {"promoID": promoID});
+        }, function(response) {})
+        .catch(function(response) {
+
+        })
+        .finally(function(){
+
+        });
+    }
+
+
+}])

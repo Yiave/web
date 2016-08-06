@@ -1,0 +1,32 @@
+<ion-view view-title="本店促销"  hide-tabs=true>
+	
+	<ion-nav-buttons side="right">
+		<button class="button button-icon icon ion-plus-round" ng-click="newPromotion()" style='padding-top: 5px;'>
+		</button>	
+
+	</ion-nav-buttons>
+
+	<ion-content has-subheader="false">
+
+		<ion-list>
+			<ion-item ng-repeat="promo in promotions" class="list card">
+				<div class="item" style="min-height:40px;">
+					<span>{{promo.title}}</span>
+					<p style="font-size: 12px;color: #bbb;">{{promo.publish_date}}</p>
+				</div>
+
+				<div class="item item-body" ng-click="editPromotion(promo.id, 1)">
+					<img class="full-image" src="{{promo.image}}">
+					
+					<p style=" font-size: 15px;color: #ff464e;">
+						<span class="brand-tag-{{promo.type}}">{{promo.label}}</span>{{promo.description}}
+					</p>
+					<!-- <button class="button button-small button-assertive icon-right ion-chevron-right" style="float: right;" ng-click="pageToPromoDetails(promo.id)">了解详情</button> -->
+					
+					<p>促销时间：{{promo.start_time}} 至 {{promo.end_time}}</p>
+					<p class="text-address">地址：黄兴南路步行商业街1F优衣库</p>
+				</div>		
+			</ion-item>
+		</ion-list>
+	</ion-content>
+</ion-view>
